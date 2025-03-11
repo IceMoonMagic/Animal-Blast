@@ -1,0 +1,50 @@
+{
+	"components": [
+		{
+			"category": "",
+			"contact": "",
+			"copyright": [
+				"IceMoonMagic"
+			],
+			"description": "",
+			"id": "main",
+			"licenses": [
+				{
+					"file": "res://LICENSE",
+					"identifier": "MPL-2.0",
+					"name": "Mozilla Public License 2.0",
+					"text": "",
+					"web": ""
+				}
+			],
+			"name": "Game",
+			"paths": [],
+			"version": "",
+			"web": ""
+		},
+		{
+			"category": "Addons",
+			"contact": "iceflower@gmx.de",
+			"copyright": [
+				"Iceflower S"
+			],
+			"description": "Manage license and copyright for third party graphics, software or libraries.",
+			"id": "license_manager",
+			"licenses": [
+				{
+					"file": "res://addons/licenses/LICENSE.md",
+					"identifier": "MIT",
+					"name": "MIT License",
+					"text": "",
+					"web": ""
+				}
+			],
+			"name": "License Manager",
+			"paths": [
+				"res://addons/licenses"
+			],
+			"version": "1.9.0",
+			"web": "https://github.com/kenyoni-software/godot-addons"
+		}
+	]
+}
