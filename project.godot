@@ -31,6 +31,7 @@ enabled=PackedStringArray("res://addons/licenses/plugin.cfg", "res://addons/gdUn
 
 folder_colors={
 "res://addons/": "red",
+"res://game/": "blue",
 "res://menus/": "green"
 }
 
@@ -39,6 +40,12 @@ folder_colors={
 settings/test/test_lookup_folder=""
 settings/test/test_suite_naming_convention=1
 settings/test/test_discovery=true
+ui/inspector/tree_sort_mode=1
+
+[physics]
+
+2d/default_linear_damp=0.0
+2d/default_angular_damp=0.0
 
 [plugins]
 

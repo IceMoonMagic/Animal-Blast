@@ -47,6 +47,30 @@
 			"web": "https://github.com/kenyoni-software/godot-addons"
 		},
 		{
+			"category": "Assets",
+			"contact": "",
+			"copyright": [
+				"Kenny"
+			],
+			"description": "",
+			"id": "kenny_animal-pack-redux",
+			"licenses": [
+				{
+					"file": "res://game/balls/variants/License.txt",
+					"identifier": "CC0",
+					"name": "Creative Commons Zero",
+					"text": "",
+					"web": ""
+				}
+			],
+			"name": "Animal Pack Redux",
+			"paths": [
+				"res://game/balls/variants"
+			],
+			"version": "1.0",
+			"web": "www.kenney.nl"
+		},
+		{
 			"category": "Tools",
 			"contact": "",
 			"copyright": [
