@@ -71,6 +71,30 @@
 			"web": "www.kenney.nl"
 		},
 		{
+			"category": "Assets",
+			"contact": "",
+			"copyright": [
+				"Kenny"
+			],
+			"description": "",
+			"id": "kenney_block-pack",
+			"licenses": [
+				{
+					"file": "res://game/environment/grounds/License.txt",
+					"identifier": "CC0",
+					"name": "Creative Commons Zero",
+					"text": "",
+					"web": ""
+				}
+			],
+			"name": "Block Pack",
+			"paths": [
+				"res://game/environment/grounds"
+			],
+			"version": "1.0",
+			"web": "www.kenney.nl"
+		},
+		{
 			"category": "Tools",
 			"contact": "",
 			"copyright": [
