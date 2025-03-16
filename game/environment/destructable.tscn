@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://b16h8ddsl8nux"]
+
+[ext_resource type="Script" uid="uid://cotndlbggjdio" path="res://game/environment/destructable.gd" id="1_mmf0k"]
+[ext_resource type="Texture2D" uid="uid://bu8n8lvs8ipjm" path="res://game/environment/grounds/fence_double.png" id="2_mmf0k"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_cibmt"]
+a = Vector2(-64, -10)
+b = Vector2(64, -10)
+
+[node name="Destructable" type="Area2D"]
+monitorable = false
+script = ExtResource("1_mmf0k")
+texture = ExtResource("2_mmf0k")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_mmf0k")
+offset = Vector2(0, -24)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("SegmentShape2D_cibmt")
