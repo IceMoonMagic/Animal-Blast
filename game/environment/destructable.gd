@@ -42,3 +42,7 @@ extends Area2D
 
 @onready var collision_shape: SegmentShape2D = $CollisionShape2D.shape
 @onready var sprite: Sprite2D = $Sprite2D
+
+
+func _on_body_entered(_body: Node2D) -> void:
+	set_deferred("destroyed", true)
