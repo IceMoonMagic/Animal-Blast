@@ -1,5 +1,5 @@
 class_name Ball
-extends RigidBody2D
+extends AnimatableBody2D
 
 enum Animal {
 	BEAR,
@@ -71,13 +71,22 @@ func _ready() -> void:
 	sprite.texture = ball_variant.ball_form
 
 
+func _physics_process(delta: float) -> void:
+	if not popped:
+		return
+
+	constant_linear_velocity += -get_gravity() * delta
+	position += constant_linear_velocity * delta
+	rotation += constant_angular_velocity * delta
+
+
 func pop() -> void:
 	if self.popped:
 		return
 	popped = true
 	sprite.texture = ball_variant.popped_form
-	gravity_scale = -1
 	collision_shape.disabled = true
+	z_index = 10
 
 
 func _on_screen_entered() -> void:

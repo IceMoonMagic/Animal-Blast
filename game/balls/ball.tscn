@@ -5,9 +5,9 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_j3w3u"]
 radius = 68.0
 
-[node name="Ball" type="RigidBody2D"]
-gravity_scale = 0.0
-freeze_mode = 1
+[node name="Ball" type="AnimatableBody2D"]
+collision_mask = 2
+sync_to_physics = false
 script = ExtResource("2_645pi")
 animal = 21
 
