@@ -43,8 +43,8 @@ func _physics_process(_delta: float) -> void:
 	for rows: Array[Ball] in balls:
 		for ball: Ball in rows:
 			if ball != null:
-				ball.position += Vector2.DOWN
-				ball.rotation_degrees += clampf(ball.angular_velocity, -1, 1)
+				ball.move_and_collide(Vector2.DOWN)
+				ball.rotation_degrees += ball.constant_angular_velocity
 	_row_offset += 1
 	if _row_offset >= 0:
 		push_row()
@@ -53,7 +53,6 @@ func _physics_process(_delta: float) -> void:
 		for ball: Ball in balls[-1]:
 			if ball != null:
 				ball.pop()
-				ball.freeze = false
 		balls.pop_back()
 
 
@@ -66,9 +65,8 @@ func push_row() -> void:
 	for x: int in range(offset, row_size * 2, 2):
 		var ball: Ball = BallScene.instantiate()
 		ball.animal = animal_pallete.pick_random()
-		ball.freeze = true
 		ball.position = Vector2(x * 68 + 68, -68)
-		ball.angular_velocity = -1 if bool(offset) else 1
+		ball.constant_angular_velocity = -1 if bool(offset) else 1
 		$Balls.add_child(ball)
 		result[x] = ball
 
