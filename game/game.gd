@@ -44,7 +44,7 @@ func _physics_process(_delta: float) -> void:
 		for ball: Ball in rows:
 			if ball != null:
 				ball.position += Vector2.DOWN
-				ball.rotation += ball.angular_velocity * _delta
+				ball.rotation_degrees += clampf(ball.angular_velocity, -1, 1)
 	_row_offset += 1
 	if _row_offset >= 0:
 		push_row()
