@@ -35,10 +35,12 @@ extends Area2D
 			sprite.offset.y = (
 				sprite.texture.get_height() / 2.0 + collision_height
 			)
+			z_index = 0
 		else:
 			self.monitoring = true
 			sprite.flip_v = false
 			sprite.offset.y = -sprite.texture.get_height() / 2.0
+			z_index = 1
 
 @onready var collision_shape: SegmentShape2D = $CollisionShape2D.shape
 @onready var sprite: Sprite2D = $Sprite2D
