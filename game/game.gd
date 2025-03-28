@@ -9,6 +9,7 @@ var row_size: int = 5
 ## Animals allowed to be used
 var animal_pallete: Array[Ball.Animal] = [Ball.Animal.PENGUIN]
 var _row_offset: float = 0.0
+var _ball_radius: float = 68
 
 
 #region Get Adjacent Hexagon Cell
@@ -40,12 +41,7 @@ static func get_right_down(from: Vector2i) -> Vector2i:
 
 
 func _physics_process(_delta: float) -> void:
-	for rows: Array[Ball] in balls:
-		for ball: Ball in rows:
-			if ball != null:
-				ball.move_and_collide(Vector2.DOWN)
-				ball.rotation_degrees += ball.constant_angular_velocity
-	_row_offset += 1
+	roll_rows(1)
 	if _row_offset >= 0:
 		push_row()
 		_row_offset = -68 * sqrt(3)
@@ -54,6 +50,15 @@ func _physics_process(_delta: float) -> void:
 			if ball != null:
 				ball.pop()
 		balls.pop_back()
+
+
+func roll_rows(distance: float) -> void:
+	for rows: Array[Ball] in balls:
+		for ball: Ball in rows:
+			if ball != null:
+				ball.move_and_collide(Vector2.DOWN * distance)
+				ball.rotation += ball.constant_angular_velocity * (distance / _ball_radius)
+	_row_offset += distance
 
 
 func push_row() -> void:
@@ -67,6 +72,7 @@ func push_row() -> void:
 		ball.animal = animal_pallete.pick_random()
 		ball.position = Vector2(x * 68 + 68, -68)
 		ball.constant_angular_velocity = -1 if bool(offset) else 1
+		ball.rotation = randf_range(0, 2*PI)
 		$Balls.add_child(ball)
 		result[x] = ball
 
