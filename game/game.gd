@@ -57,7 +57,9 @@ func roll_rows(distance: float) -> void:
 		for ball: Ball in rows:
 			if ball != null:
 				ball.move_and_collide(Vector2.DOWN * distance)
-				ball.rotation += ball.constant_angular_velocity * (distance / _ball_radius)
+				ball.rotation += (
+					ball.constant_angular_velocity * (distance / _ball_radius)
+				)
 	_row_offset += distance
 
 
@@ -72,7 +74,8 @@ func push_row() -> void:
 		ball.animal = animal_pallete.pick_random()
 		ball.position = Vector2(x * 68 + 68, -68)
 		ball.constant_angular_velocity = -1 if bool(offset) else 1
-		ball.rotation = randf_range(0, 2*PI)
+		ball.rotation = randf_range(0, 2 * PI)
+		ball.radius = _ball_radius
 		$Balls.add_child(ball)
 		result[x] = ball
 
