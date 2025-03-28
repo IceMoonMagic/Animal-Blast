@@ -40,6 +40,14 @@ static var variants: Dictionary[int, BallVariant] = {}
 	set(val):
 		animal = val
 		ball_variant = get_variant(animal)
+@export var radius: float = 68.0:
+	set(r):
+		if not is_node_ready():
+			await ready
+		radius = r
+		sprite.scale = Vector2.ONE * (r / 68.0)
+		collision_shape.shape.radius = r
+		$VisibleOnScreenNotifier2D.scale = Vector2.ONE * (r / 68.0)
 var popped: bool = false
 var ball_variant: BallVariant
 var _visible: bool = false
