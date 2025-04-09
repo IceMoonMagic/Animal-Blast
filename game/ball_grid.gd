@@ -27,9 +27,9 @@ const BallScene = preload("res://game/balls/ball.tscn")
 		if mode == MoveMode.INTERMITTENT_MOVE and mode != new_mode:
 			intermittent_move_done.emit()
 		mode = new_mode
-var balls: Array[Array] = []
 ## Animals allowed to be used
 var animal_pallete: Array[Ball.Animal] = [Ball.Animal.PENGUIN]
+var balls: Array[Array] = []
 var _row_offset: float = 0.0
 var _ball_radius: float:
 	get:
@@ -85,11 +85,10 @@ func _physics_process(delta: float) -> void:
 			push_row()
 		else:
 			mode = MoveMode.INTERMITTENT_WAIT
-	if len(balls) > 25:
-		for ball: Ball in balls[-1]:
+	if (sqrt(3) * len(balls) - 2) * _ball_radius + _row_offset > 1111:
+		for ball: Ball in balls.pop_back():
 			if ball != null:
-				ball.pop()
-		balls.pop_back()
+				ball.queue_free()
 
 
 func advance(block: bool = true) -> void:
