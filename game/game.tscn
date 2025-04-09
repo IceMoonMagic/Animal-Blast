@@ -19,3 +19,5 @@ shape = SubResource("WorldBoundaryShape2D_vasa2")
 
 [node name="Balls" type="Node2D" parent="."]
 script = ExtResource("3_h7iqs")
+
+[connection signal="body_entered" from="Environment/LoseLine" to="." method="_on_lose_line_body_entered"]
