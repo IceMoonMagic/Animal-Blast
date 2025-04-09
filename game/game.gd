@@ -1,12 +1,16 @@
 extends Node2D
 
+signal game_over
+
 ## The balls, using pointy-top hexagon doubled cooridnates.
 ## [br]https://www.redblobgames.com/grids/hexagons/#coordinates-doubled
 const BallScene = preload("res://game/balls/ball.tscn")
-var balls: Array[Array] = []
 ## How many balls fit in a row. Visually, each row could hold another half ball
-var row_size: int = 5
+@export var row_size: int = 10:
+	set(val):
+		row_size = abs(val)
 ## Animals allowed to be used
+var balls: Array[Array] = []
 var animal_pallete: Array[Ball.Animal] = [Ball.Animal.PENGUIN]
 var _row_offset: float = 0.0
 var _ball_radius: float:
@@ -41,13 +45,29 @@ static func get_right_down(from: Vector2i) -> Vector2i:
 
 #endregion
 
+@warning_ignore("shadowed_variable")
+
+
+func _init(
+	row_size: int = self.row_size,
+	animal_pallete: Array[Ball.Animal] = self.animal_pallete
+) -> void:
+	self.row_size = row_size
+	self.animal_pallete = animal_pallete
+
+
+func _ready() -> void:
+	$Environment/LooseLine/CollisionShape2D.shape.distance = -(
+		784 + 30 + min(_ball_radius, 44)
+	)
+
 
 func _physics_process(_delta: float) -> void:
 	roll_rows(1)
 	if _row_offset >= 0:
 		push_row()
 		_row_offset = -_ball_radius * sqrt(3)
-	if len(balls) > 6:
+	if len(balls) > 25:
 		for ball: Ball in balls[-1]:
 			if ball != null:
 				ball.pop()
@@ -85,3 +105,8 @@ func push_row() -> void:
 		result[x] = ball
 
 	balls.push_front(result)
+
+
+func _on_lose_line_body_entered(_body: Node2D) -> void:
+	game_over.emit()
+	set_deferred("process_mode", Node.PROCESS_MODE_DISABLED)
