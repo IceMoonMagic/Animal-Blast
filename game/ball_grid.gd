@@ -1,19 +1,40 @@
 extends Node2D
-
-## The balls, using pointy-top hexagon doubled cooridnates.
+## The grid of balls, using pointy-top hexagon doubled cooridnates.
 ## [br]https://www.redblobgames.com/grids/hexagons/#coordinates-doubled
+
+## Emitted when mode changes off of INTERMITTENT_MOVE
+signal intermittent_move_done
+enum MoveMode { CONTINUOUS, INTERMITTENT_WAIT, INTERMITTENT_MOVE }
 const BallScene = preload("res://game/balls/ball.tscn")
+
 ## How many balls fit in a row. Visually, each row could hold another half ball
 @export var row_size: int = 10:
 	set(val):
 		row_size = abs(val)
-## Animals allowed to be used
+@export var acceleration: float = 1
+@export var max_speed: float = 30
+@export var mode: MoveMode = MoveMode.CONTINUOUS:
+	set(new_mode):
+		match new_mode:
+			MoveMode.CONTINUOUS:
+				pass
+			MoveMode.INTERMITTENT_MOVE:
+				_speed = max_speed
+				if _row_offset >= 0:
+					push_row()
+			MoveMode.INTERMITTENT_WAIT:
+				_speed = 0
+		if mode == MoveMode.INTERMITTENT_MOVE and mode != new_mode:
+			intermittent_move_done.emit()
+		mode = new_mode
 var balls: Array[Array] = []
+## Animals allowed to be used
 var animal_pallete: Array[Ball.Animal] = [Ball.Animal.PENGUIN]
 var _row_offset: float = 0.0
 var _ball_radius: float:
 	get:
 		return 640.0 / (2 * row_size + 1)
+var _speed: float = 0
 
 
 #region Get Adjacent Hexagon Cell
@@ -54,16 +75,27 @@ func _init(
 	self.animal_pallete = animal_pallete
 
 
-func _physics_process(_delta: float) -> void:
-	roll_rows(1)
+func _physics_process(delta: float) -> void:
+	if mode == MoveMode.INTERMITTENT_WAIT:
+		return
+	roll_rows(_speed * delta)
+	_speed = min(max_speed, _speed + acceleration)
 	if _row_offset >= 0:
-		push_row()
-		_row_offset = -_ball_radius * sqrt(3)
+		if mode == MoveMode.CONTINUOUS:
+			push_row()
+		else:
+			mode = MoveMode.INTERMITTENT_WAIT
 	if len(balls) > 25:
 		for ball: Ball in balls[-1]:
 			if ball != null:
 				ball.pop()
 		balls.pop_back()
+
+
+func advance(block: bool = true) -> void:
+	mode = MoveMode.INTERMITTENT_MOVE
+	if block:
+		await intermittent_move_done
 
 
 func roll_rows(distance: float) -> void:
@@ -97,3 +129,4 @@ func push_row() -> void:
 		result[x] = ball
 
 	balls.push_front(result)
+	_row_offset -= _ball_radius * sqrt(3)
