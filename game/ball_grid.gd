@@ -35,6 +35,7 @@ var _ball_radius: float:
 	get:
 		return 640.0 / (2 * row_size + 1)
 var _speed: float = 0
+var _hex_grid_row_offset: bool = false
 
 
 #region Get Adjacent Hexagon Cell
@@ -113,15 +114,15 @@ func push_row() -> void:
 	result.resize(row_size * 2)
 	result.fill(null)
 
-	var offset := int(len(balls) != 0 and balls[0][0] != null)
-	for x: int in range(offset, row_size * 2, 2):
+	_hex_grid_row_offset = not _hex_grid_row_offset
+	for x: int in range(int(_hex_grid_row_offset), row_size * 2, 2):
 		var ball: Ball = BallScene.instantiate()
 		ball.animal = animal_pallete.pick_random()
 		ball.position = Vector2(
 			_ball_radius * (x + 1),
 			_row_offset - _ball_radius,
 		)
-		ball.constant_angular_velocity = -1 if bool(offset) else 1
+		ball.constant_angular_velocity = -1 if _hex_grid_row_offset else 1
 		ball.rotation = randf_range(0, 2 * PI)
 		ball.radius = _ball_radius
 		add_child(ball)
@@ -129,3 +130,41 @@ func push_row() -> void:
 
 	balls.push_front(result)
 	_row_offset -= _ball_radius * sqrt(3)
+
+
+func coords_to_index(coords: Vector2) -> Vector2i:
+	var original_coords := coords
+	#coords.x -= _ball_radius
+	coords.x /= _ball_radius
+	#coords.y += _row_offset
+	coords.y /= (_ball_radius * sqrt(3))
+	var result_coords := Vector2i(coords.round())
+	if (result_coords.x + result_coords.y) % 2 != int(_hex_grid_row_offset):
+		return result_coords
+
+	var canidates: Array[Vector2i] = [
+		result_coords + Vector2i.UP,
+		result_coords + Vector2i.DOWN,
+		result_coords + Vector2i.LEFT,
+		result_coords + Vector2i.RIGHT,
+	]
+	var closest_distance := INF
+	var closest_coords: Vector2i
+	for canidate: Vector2i in canidates:
+		if (canidate.x + canidate.y) % 2 == int(_hex_grid_row_offset):
+			continue
+		var canidate_position: Vector2 = index_to_coords(canidate)
+		var distance: float = original_coords.distance_squared_to(
+			canidate_position
+		)
+		if distance < closest_distance:
+			closest_distance = distance
+			closest_coords = canidate
+	return closest_coords
+
+
+func index_to_coords(index: Vector2i) -> Vector2:
+	return Vector2(
+		index.x * _ball_radius,
+		(index.y + 1) * _ball_radius * sqrt(3) + _row_offset - _ball_radius
+	)
