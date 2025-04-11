@@ -29,6 +29,7 @@ const BallScene = preload("res://game/balls/ball.tscn")
 		mode = new_mode
 ## Animals allowed to be used
 var animal_pallete: Array[Ball.Animal] = [Ball.Animal.PENGUIN]
+var pop_queue: Array[Ball] = []
 var balls: Array[Array] = []
 var _row_offset: float = 0.0
 var _ball_radius: float:
@@ -63,6 +64,17 @@ static func get_right_down(from: Vector2i) -> Vector2i:
 	return from + Vector2i.ONE
 
 
+static func get_adjacent_cells(from: Vector2i) -> Array[Vector2i]:
+	return [
+		get_left_down(from),
+		get_left_left(from),
+		get_left_up(from),
+		get_right_down(from),
+		get_right_right(from),
+		get_right_up(from),
+	]
+
+
 #endregion
 
 @warning_ignore("shadowed_variable")
@@ -74,6 +86,12 @@ func _init(
 ) -> void:
 	self.row_size = row_size
 	self.animal_pallete = animal_pallete
+
+
+func _process(_delta: float) -> void:
+	var to_pop: Ball = pop_queue.pop_front()
+	if to_pop != null:
+		to_pop.pop()
 
 
 #region Row Movement
@@ -192,6 +210,25 @@ func ball_exists(index: Vector2i) -> bool:
 #endregion
 
 
+func get_surrounding_cells(
+	base_cells: Array[Vector2i], include_empty: bool = false
+) -> Array[Vector2i]:
+	var result: Array[Vector2i] = []
+	for base_cell: Vector2i in base_cells:
+		for adjacent_cell in get_adjacent_cells(base_cell):
+			if (
+				is_in_bounds(adjacent_cell)
+				and adjacent_cell not in base_cells
+				and adjacent_cell not in result
+				and (
+					include_empty
+					or balls[adjacent_cell.y][adjacent_cell.x] != null
+				)
+			):
+				result.append(adjacent_cell)
+	return result
+
+
 func find_adjacent_cells(
 	starting_index: Vector2i, condition: Callable
 ) -> Array[Vector2i]:
@@ -209,14 +246,7 @@ func find_adjacent_cells(
 		explored.append(index)
 
 		var result: Array[Vector2i] = [index]
-		for next_index: Vector2i in [
-			get_left_down(index),
-			get_left_left(index),
-			get_left_up(index),
-			get_right_down(index),
-			get_right_right(index),
-			get_right_up(index),
-		]:
+		for next_index: Vector2i in get_adjacent_cells(index):
 			result.append_array(recurse.call(next_index, recurse))
 		return result
 	return _find_adjacent_balls.call(starting_index, _find_adjacent_balls)
@@ -235,11 +265,29 @@ func find_adjacent_cells_same_animal(
 	return find_adjacent_cells(starting_index, cond_same_animal)
 
 
-func pop_match_3(pos: Vector2i) -> void:
-	var poppable_balls: Array[Vector2i] = find_adjacent_cells_same_animal(pos)
-	if len(poppable_balls) < 3:
-		return
-	for ball_index: Vector2i in poppable_balls:
+func pop_balls(cluster: Array[Vector2i]) -> void:
+	for ball_index: Vector2i in cluster:
+		if not ball_exists(ball_index):
+			continue
 		var ball: Ball = balls[ball_index.y][ball_index.x]
 		balls[ball_index.y][ball_index.x] = null
-		ball.pop()
+		pop_queue.append(ball)
+
+
+func pop_match_3(index: Vector2i) -> void:
+	var poppable_balls: Array[Vector2i] = find_adjacent_cells_same_animal(index)
+	if len(poppable_balls) < 3:
+		return
+	pop_balls(poppable_balls)
+	for adjacent in get_surrounding_cells(poppable_balls):
+		pop_ungrounded(adjacent)
+
+
+func pop_ungrounded(index: Vector2i) -> void:
+	if not ball_exists(index):
+		return
+	var cluster: Array[Vector2i] = find_adjacent_cells(
+		index, func(_i: Vector2i, _b: Ball) -> bool: return true
+	)
+	if not cluster.any(func(i: Vector2i) -> bool: return i.y == 0):
+		pop_balls(cluster)
