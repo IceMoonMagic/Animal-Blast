@@ -76,6 +76,7 @@ func _init(
 	self.animal_pallete = animal_pallete
 
 
+#region Row Movement
 func _physics_process(delta: float) -> void:
 	if mode == MoveMode.INTERMITTENT_WAIT:
 		return
@@ -132,14 +133,19 @@ func push_row() -> void:
 	_row_offset -= _ball_radius * sqrt(3)
 
 
+#endregion
+
+
+#region Coordinate Conversion
 func coords_to_index(coords: Vector2) -> Vector2i:
 	var original_coords := coords
 	#coords.x -= _ball_radius
 	coords.x /= _ball_radius
+	coords.x -= 1
 	#coords.y += _row_offset
 	coords.y /= (_ball_radius * sqrt(3))
 	var result_coords := Vector2i(coords.round())
-	if (result_coords.x + result_coords.y) % 2 != int(_hex_grid_row_offset):
+	if (result_coords.x + result_coords.y) % 2 == int(_hex_grid_row_offset):
 		return result_coords
 
 	var canidates: Array[Vector2i] = [
@@ -151,7 +157,7 @@ func coords_to_index(coords: Vector2) -> Vector2i:
 	var closest_distance := INF
 	var closest_coords: Vector2i
 	for canidate: Vector2i in canidates:
-		if (canidate.x + canidate.y) % 2 == int(_hex_grid_row_offset):
+		if (canidate.x + canidate.y) % 2 != int(_hex_grid_row_offset):
 			continue
 		var canidate_position: Vector2 = index_to_coords(canidate)
 		var distance: float = original_coords.distance_squared_to(
@@ -165,6 +171,21 @@ func coords_to_index(coords: Vector2) -> Vector2i:
 
 func index_to_coords(index: Vector2i) -> Vector2:
 	return Vector2(
-		index.x * _ball_radius,
+		(index.x + 1) * _ball_radius,
 		(index.y + 1) * _ball_radius * sqrt(3) + _row_offset - _ball_radius
 	)
+
+
+func is_in_bounds(index: Vector2i) -> bool:
+	return (
+		0 <= index.y
+		and index.y < len(balls)
+		and 0 <= index.x
+		and index.x < len(balls[index.y])
+	)
+
+
+func ball_exists(index: Vector2i) -> bool:
+	return is_in_bounds(index) and balls[index.y][index.x] != null
+
+#endregion
