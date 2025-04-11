@@ -188,4 +188,58 @@ func is_in_bounds(index: Vector2i) -> bool:
 func ball_exists(index: Vector2i) -> bool:
 	return is_in_bounds(index) and balls[index.y][index.x] != null
 
+
 #endregion
+
+
+func find_adjacent_cells(
+	starting_index: Vector2i, condition: Callable
+) -> Array[Vector2i]:
+	var explored: Array[Vector2i] = []
+	var _find_adjacent_balls: Callable
+	_find_adjacent_balls = func(
+		index: Vector2i, recurse: Callable
+	) -> Array[Vector2i]:
+		if (
+			index in explored
+			or not ball_exists(index)
+			or not condition.call(index, balls[index.y][index.x])
+		):
+			return []
+		explored.append(index)
+
+		var result: Array[Vector2i] = [index]
+		for next_index: Vector2i in [
+			get_left_down(index),
+			get_left_left(index),
+			get_left_up(index),
+			get_right_down(index),
+			get_right_right(index),
+			get_right_up(index),
+		]:
+			result.append_array(recurse.call(next_index, recurse))
+		return result
+	return _find_adjacent_balls.call(starting_index, _find_adjacent_balls)
+
+
+func find_adjacent_cells_same_animal(
+	starting_index: Vector2i
+) -> Array[Vector2i]:
+	if not ball_exists(starting_index):
+		return []
+	var target_animal: Ball.Animal = (
+		balls[starting_index.y][starting_index.x].animal
+	)
+	var cond_same_animal := func(_pos: Vector2i, ball: Ball) -> bool:
+		return target_animal == ball.animal
+	return find_adjacent_cells(starting_index, cond_same_animal)
+
+
+func pop_match_3(pos: Vector2i) -> void:
+	var poppable_balls: Array[Vector2i] = find_adjacent_cells_same_animal(pos)
+	if len(poppable_balls) < 3:
+		return
+	for ball_index: Vector2i in poppable_balls:
+		var ball: Ball = balls[ball_index.y][ball_index.x]
+		balls[ball_index.y][ball_index.x] = null
+		ball.pop()
