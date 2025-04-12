@@ -88,14 +88,11 @@ func _init(
 	self.animal_pallete = animal_pallete
 
 
-func _process(_delta: float) -> void:
+#region Row Movement
+func _physics_process(delta: float) -> void:
 	var to_pop: Ball = pop_queue.pop_front()
 	if to_pop != null:
 		to_pop.pop()
-
-
-#region Row Movement
-func _physics_process(delta: float) -> void:
 	if mode == MoveMode.INTERMITTENT_WAIT:
 		return
 	roll_rows(_speed * delta)
@@ -291,3 +288,24 @@ func pop_ungrounded(index: Vector2i) -> void:
 	)
 	if not cluster.any(func(i: Vector2i) -> bool: return i.y == 0):
 		pop_balls(cluster)
+
+
+func place_ball(ball: Ball, index: Vector2i, cause_pop := true) -> void:
+	if (
+		index.y < 0
+		or index.x < 0
+		or index.x >= row_size * 2
+		or ball_exists(index)
+	):
+		ball.queue_free()
+		return
+
+	for _i in range(max(0, index.y - len(balls) + 1)):
+		var filler_array: Array = []
+		filler_array.resize(row_size * 2)
+		filler_array.fill(null)
+		balls.append(filler_array)
+
+	balls[index.y][index.x] = ball
+	if cause_pop:
+		pop_match_3(index)
