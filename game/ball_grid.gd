@@ -118,7 +118,7 @@ func roll_rows(distance: float) -> void:
 	for rows: Array[Ball] in balls:
 		for ball: Ball in rows:
 			if ball != null:
-				ball.move_and_collide(Vector2.DOWN * distance)
+				ball.position += (Vector2.DOWN * distance)
 				ball.rotation += (
 					ball.constant_angular_velocity * (distance / _ball_radius)
 				)
