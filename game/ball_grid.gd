@@ -307,5 +307,6 @@ func place_ball(ball: Ball, index: Vector2i, cause_pop := true) -> void:
 		balls.append(filler_array)
 
 	balls[index.y][index.x] = ball
+	ball.position = coords_to_index(index)
 	if cause_pop:
 		pop_match_3(index)
