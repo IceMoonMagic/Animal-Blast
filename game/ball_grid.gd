@@ -88,6 +88,17 @@ func _init(
 	self.animal_pallete = animal_pallete
 
 
+func _init_ball(
+	animal: Ball.Animal = animal_pallete.pick_random(),
+	spin_direction: int = -1 if _hex_grid_row_offset else 1,
+) -> Ball:
+	var ball := BallScene.instantiate()
+	ball.animal = animal
+	ball.radius = _ball_radius
+	ball.constant_angular_velocity = spin_direction
+	return ball
+
+
 #region Row Movement
 func _physics_process(delta: float) -> void:
 	var to_pop: Ball = pop_queue.pop_front()
@@ -132,15 +143,12 @@ func push_row() -> void:
 
 	_hex_grid_row_offset = not _hex_grid_row_offset
 	for x: int in range(int(_hex_grid_row_offset), row_size * 2, 2):
-		var ball: Ball = BallScene.instantiate()
-		ball.animal = animal_pallete.pick_random()
+		var ball: Ball = _init_ball()
+		ball.rotation = randf_range(0, 2 * PI)
 		ball.position = Vector2(
 			_ball_radius * (x + 1),
 			_row_offset - _ball_radius,
 		)
-		ball.constant_angular_velocity = -1 if _hex_grid_row_offset else 1
-		ball.rotation = randf_range(0, 2 * PI)
-		ball.radius = _ball_radius
 		add_child(ball)
 		result[x] = ball
 
@@ -307,6 +315,11 @@ func place_ball(ball: Ball, index: Vector2i, cause_pop := true) -> void:
 		balls.append(filler_array)
 
 	balls[index.y][index.x] = ball
-	ball.position = coords_to_index(index)
+
+	ball.reparent(self)
+	ball.set_collision_layer_value(1, true)
+	ball.set_collision_mask_value(1, false)
+	ball.set_collision_mask_value(2, false)
+	ball.position = index_to_coords(index)
 	if cause_pop:
 		pop_match_3(index)

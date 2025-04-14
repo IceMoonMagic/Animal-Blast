@@ -9,6 +9,7 @@ b = Vector2(64, -10)
 
 [node name="Destructable" type="Area2D"]
 z_index = 1
+collision_layer = 0
 monitorable = false
 script = ExtResource("1_mmf0k")
 texture = ExtResource("2_mmf0k")

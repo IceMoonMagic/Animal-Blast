@@ -16,11 +16,15 @@ script = ExtResource("1_vasa2")
 [node name="Environment" parent="." instance=ExtResource("2_h7iqs")]
 
 [node name="WarningLine" type="Area2D" parent="Environment"]
+collision_layer = 0
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/WarningLine"]
 shape = SubResource("WorldBoundaryShape2D_h7iqs")
 
 [node name="LoseLine" type="Area2D" parent="Environment"]
+collision_layer = 0
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/LoseLine"]
 shape = SubResource("WorldBoundaryShape2D_vasa2")
