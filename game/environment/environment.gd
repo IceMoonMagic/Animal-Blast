@@ -1,28 +1,19 @@
 @tool
 extends Node2D
 
-enum Terrain { GRASS, SNOW, WATER, LAVA }
-const ATLAS_MAP: Dictionary[Terrain, Vector2i] = {
-	Terrain.GRASS: Vector2i(0, 0),
-	Terrain.SNOW: Vector2i(1, 0),
-	Terrain.WATER: Vector2i(0, 1),
-	Terrain.LAVA: Vector2i(0, 2),
+const ATLAS_MAP: Dictionary[EnvironmentPalette.Terrain, Vector2i] = {
+	EnvironmentPalette.Terrain.GRASS: Vector2i(0, 0),
+	EnvironmentPalette.Terrain.SNOW: Vector2i(1, 0),
+	EnvironmentPalette.Terrain.WATER: Vector2i(0, 1),
+	EnvironmentPalette.Terrain.LAVA: Vector2i(0, 2),
 }
 
-@export var normal_tiles: Terrain = Terrain.GRASS:
-	set(tile):
-		normal_tiles = tile
-		_set_cells_between(Vector2i(0, -1), Vector2i(4, 8), normal_tiles)
-		_update_midground()
-@export var lose_tiles: Terrain = Terrain.WATER:
-	set(tile):
-		lose_tiles = tile
-		_update_midground()
-@export var defense_tiles: Terrain = Terrain.GRASS:
-	set(tile):
-		defense_tiles = tile
-		_set_cells_between(Vector2i(0, 11), Vector2i(4, 11), defense_tiles)
-		_update_midground()
+@export var palette: EnvironmentPalette = GameMode.environment_palette:
+	set(new_palette):
+		if new_palette != palette:
+			palette.disconnect("changed", _update_midground)
+			new_palette.connect("changed", _update_midground)
+			palette = new_palette
 
 @onready var background: Node2D = $Background
 @onready
@@ -34,16 +25,20 @@ var foreground_tile_map_layer: TileMapLayer = $Foreground/ForegroundTileMapLayer
 @onready var final_fences: Node2D = $Background/FinalFences
 
 
+func _init() -> void:
+	palette.connect("changed", _update_midground)
+
+
 func _update_midground() -> void:
 	if not is_node_ready():
 		await ready
 
+	_set_cells_between(Vector2i(0, -1), Vector2i(4, 8), palette.normal_tiles)
+	_set_cells_between(Vector2i(0, 11), Vector2i(4, 11), palette.defense_tiles)
+
 	const FENCE_OFFSET := 20.0
-	var is_liquid: Array = [normal_tiles, lose_tiles, defense_tiles].map(
-		func(t: Terrain) -> bool: return t in [Terrain.WATER, Terrain.LAVA]
-	)
 	var layer_switch: int = 9
-	match is_liquid:
+	match palette.is_liquid:
 		[false, false, false]:  # Field
 			foreground.z_index = 0
 			#layer_switch = 9
@@ -118,12 +113,15 @@ func _update_midground() -> void:
 			#defence_fences.position.y = 0
 
 	_set_cells_between(
-		Vector2i(0, 9), Vector2i(4, 10), lose_tiles, layer_switch
+		Vector2i(0, 9), Vector2i(4, 10), palette.lose_tiles, layer_switch
 	)
 
 
 func _set_cells_between(
-	start: Vector2i, end: Vector2i, terrain: Terrain, layer_switch: int = 9
+	start: Vector2i,
+	end: Vector2i,
+	terrain: EnvironmentPalette.Terrain,
+	layer_switch: int = 9
 ) -> void:
 	if not is_node_ready() and not Engine.is_editor_hint():
 		await ready

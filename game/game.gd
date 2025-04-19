@@ -54,7 +54,7 @@ func _physics_process(delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
-		_flying_ball = $Balls._init_ball()
+		_flying_ball = GameMode.init_ball()
 		_flying_ball.constant_linear_velocity = Vector2(-2, -3).normalized()
 		_flying_ball.position = event.position
 		_flying_ball.set_collision_layer_value(1, false)
