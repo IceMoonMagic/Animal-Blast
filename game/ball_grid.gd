@@ -297,6 +297,7 @@ func place_ball(ball: Ball, index: Vector2i, cause_pop := true) -> void:
 	ball.set_collision_layer_value(1, true)
 	ball.set_collision_mask_value(1, false)
 	ball.set_collision_mask_value(2, false)
+	ball.z_index = 0
 	ball.position = index_to_coords(index)
 	if cause_pop:
 		pop_match_3(index)

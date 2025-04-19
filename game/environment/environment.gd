@@ -1,4 +1,3 @@
-@tool
 extends Node2D
 
 const ATLAS_MAP: Dictionary[EnvironmentPalette.Terrain, Vector2i] = {
@@ -8,7 +7,7 @@ const ATLAS_MAP: Dictionary[EnvironmentPalette.Terrain, Vector2i] = {
 	EnvironmentPalette.Terrain.LAVA: Vector2i(0, 2),
 }
 
-@export var palette: EnvironmentPalette = GameMode.environment_palette:
+var palette: EnvironmentPalette = GameMode.environment_palette:
 	set(new_palette):
 		if new_palette != palette:
 			palette.disconnect("changed", _update_midground)
@@ -25,8 +24,9 @@ var foreground_tile_map_layer: TileMapLayer = $Foreground/ForegroundTileMapLayer
 @onready var final_fences: Node2D = $Background/FinalFences
 
 
-func _init() -> void:
+func _ready() -> void:
 	palette.connect("changed", _update_midground)
+	_update_midground()
 
 
 func _update_midground() -> void:

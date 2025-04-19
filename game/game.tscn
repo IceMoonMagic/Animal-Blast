@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bhtwbv5d08e8n"]
+[gd_scene load_steps=7 format=3 uid="uid://bhtwbv5d08e8n"]
 
 [ext_resource type="Script" uid="uid://der3xh7asgse0" path="res://game/game.gd" id="1_vasa2"]
 [ext_resource type="PackedScene" uid="uid://0svo37ggabh1" path="res://game/environment/environment.tscn" id="2_h7iqs"]
 [ext_resource type="Script" uid="uid://cnhhuv5cxe2vl" path="res://game/ball_grid.gd" id="3_h7iqs"]
+[ext_resource type="PackedScene" uid="uid://bhg08vpqequav" path="res://game/ball_launcher/ball_launcher.tscn" id="4_4fuuu"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_h7iqs"]
 distance = -784.0
@@ -37,6 +38,11 @@ default_color = Color(1, 0, 0, 1)
 [node name="Balls" type="Node2D" parent="."]
 script = ExtResource("3_h7iqs")
 
+[node name="BallLauncher" parent="." instance=ExtResource("4_4fuuu")]
+z_index = 1
+position = Vector2(320, 1056)
+
 [connection signal="body_entered" from="Environment/WarningLine" to="." method="_on_warning_line_body_interacted"]
 [connection signal="body_exited" from="Environment/WarningLine" to="." method="_on_warning_line_body_interacted"]
 [connection signal="body_entered" from="Environment/LoseLine" to="." method="_on_lose_line_body_entered"]
+[connection signal="ball_fired" from="BallLauncher" to="." method="_on_ball_launcher_ball_fired"]
