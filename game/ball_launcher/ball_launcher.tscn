@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bhg08vpqequav"]
+
+[ext_resource type="Script" uid="uid://c4eoa8udvkhgf" path="res://game/ball_launcher/ball_launcher.gd" id="1_rc85n"]
+
+[node name="BallLauncher" type="Node2D"]
+rotation = -1.5708
+script = ExtResource("1_rc85n")
