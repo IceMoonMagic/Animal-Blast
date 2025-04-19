@@ -5,12 +5,11 @@ extends Node2D
 ## Emitted when mode changes off of INTERMITTENT_MOVE
 signal intermittent_move_done
 enum MoveMode { CONTINUOUS, INTERMITTENT_WAIT, INTERMITTENT_MOVE }
-const BallScene = preload("res://game/balls/ball.tscn")
 
 ## How many balls fit in a row. Visually, each row could hold another half ball
-@export var row_size: int = 10:
-	set(val):
-		row_size = abs(val)
+@export var row_size: int:
+	get:
+		return GameMode.difficulty_settings["num_rows"]
 @export var acceleration: float = 1
 @export var max_speed: float = 30
 @export var mode: MoveMode = MoveMode.CONTINUOUS:
@@ -28,7 +27,6 @@ const BallScene = preload("res://game/balls/ball.tscn")
 			intermittent_move_done.emit()
 		mode = new_mode
 ## Animals allowed to be used
-var animal_pallete: Array[Ball.Animal] = [Ball.Animal.PENGUIN]
 var pop_queue: Array[Ball] = []
 var balls: Array[Array] = []
 var _row_offset: float = 0.0
@@ -77,27 +75,6 @@ static func get_adjacent_cells(from: Vector2i) -> Array[Vector2i]:
 
 #endregion
 
-@warning_ignore("shadowed_variable")
-
-
-func _init(
-	row_size: int = self.row_size,
-	animal_pallete: Array[Ball.Animal] = self.animal_pallete
-) -> void:
-	self.row_size = row_size
-	self.animal_pallete = animal_pallete
-
-
-func _init_ball(
-	animal: Ball.Animal = animal_pallete.pick_random(),
-	spin_direction: int = -1 if _hex_grid_row_offset else 1,
-) -> Ball:
-	var ball := BallScene.instantiate()
-	ball.animal = animal
-	ball.radius = _ball_radius
-	ball.constant_angular_velocity = spin_direction
-	return ball
-
 
 #region Row Movement
 func _physics_process(delta: float) -> void:
@@ -143,7 +120,7 @@ func push_row() -> void:
 
 	_hex_grid_row_offset = not _hex_grid_row_offset
 	for x: int in range(int(_hex_grid_row_offset), row_size * 2, 2):
-		var ball: Ball = _init_ball()
+		var ball: Ball = GameMode.init_ball(-1 if _hex_grid_row_offset else 1)
 		ball.rotation = randf_range(0, 2 * PI)
 		ball.position = Vector2(
 			_ball_radius * (x + 1),

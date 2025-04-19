@@ -14,6 +14,10 @@ config/name="Animal Blast"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GameMode="*res://globals/game_mode.gd"
+
 [debug]
 
 gdscript/warnings/untyped_declaration=2
@@ -32,6 +36,7 @@ enabled=PackedStringArray("res://addons/licenses/plugin.cfg", "res://addons/gdUn
 folder_colors={
 "res://addons/": "red",
 "res://game/": "blue",
+"res://globals/": "purple",
 "res://menus/": "green"
 }
 
