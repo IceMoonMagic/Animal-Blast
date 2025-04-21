@@ -22,10 +22,14 @@ const BallScene = preload("res://game/balls/ball.tscn")
 
 var animal_palette: AnimalPalette = AnimalPalette.new()
 var environment_palette: EnvironmentPalette = EnvironmentPalette.new()
-var difficulty: DIFFICULTY = DIFFICULTY.EASY
+var difficulty: DIFFICULTY = DIFFICULTY.MEDIUM
 var difficulty_settings: Dictionary:
 	get:
 		return DIFFICUTLY_SETTINGS[difficulty]
+
+var ball_radius: float:
+	get:
+		return 640.0 / (2 * difficulty_settings["num_rows"] + 1)
 
 
 func init_ball(
@@ -37,6 +41,6 @@ func init_ball(
 		. get_limited(difficulty_settings["num_animals"])
 		. pick_random()
 	)
-	ball.radius = 640.0 / (2 * difficulty_settings["num_rows"] + 1)
+	ball.radius = ball_radius
 	ball.constant_angular_velocity = spin_direction
 	return ball
