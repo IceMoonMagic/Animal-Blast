@@ -1,7 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://bhg08vpqequav"]
+[gd_scene load_steps=3 format=3 uid="uid://bhg08vpqequav"]
 
 [ext_resource type="Script" uid="uid://c4eoa8udvkhgf" path="res://game/ball_launcher/ball_launcher.gd" id="1_rc85n"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hisfo"]
 
 [node name="BallLauncher" type="Node2D"]
 rotation = -1.5708
 script = ExtResource("1_rc85n")
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 0, 0)
+
+[node name="ShapeCast2D" type="ShapeCast2D" parent="Line2D"]
+shape = SubResource("CircleShape2D_hisfo")
+collision_mask = 3
