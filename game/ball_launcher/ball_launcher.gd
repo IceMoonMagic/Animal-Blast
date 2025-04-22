@@ -27,9 +27,13 @@ var _fire_normal: Vector2:
 	get:
 		return Vector2(cos(_current_angle_rad), sin(_current_angle_rad))
 
+@onready var line2d: Line2D = $Line2D
+@onready var shape_cast: ShapeCast2D = $Line2D/ShapeCast2D
+
 
 func _ready() -> void:
-	$Line2D/ShapeCast2D.shape.radius = GameMode.ball_radius
+	shape_cast.shape.radius = GameMode.ball_radius
+	line2d.width = GameMode.ball_radius * 2
 	if ball_on_deck == null:
 		cycle_balls()
 	if ball_current == null:
@@ -37,25 +41,46 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	$Line2D.visible = can_fire
+	const LINE_LENGTH := 2000
+	line2d.visible = can_fire
 	_current_angle_rad = (get_global_mouse_position() - position).angle()
-	$Line2D/ShapeCast2D.position = Vector2.ZERO
-	$Line2D/ShapeCast2D.target_position = _fire_normal.rotated(-rotation) * 2000
-	$Line2D.set_point_position(
-		1,
+
+	shape_cast.position = Vector2.ZERO
+	shape_cast.target_position = _fire_normal.rotated(-rotation) * LINE_LENGTH
+	shape_cast.force_shapecast_update()
+	line2d.clear_points()
+	line2d.add_point(Vector2.ZERO)
+	line2d.add_point(
 		(
-			$Line2D/ShapeCast2D.get_closest_collision_unsafe_fraction()
-			* $Line2D/ShapeCast2D.target_position
+			shape_cast.get_closest_collision_unsafe_fraction()
+			* shape_cast.target_position
 		)
 	)
-
-	if not $Line2D/ShapeCast2D.is_colliding():
-		if $Line2D.get_point_count() > 2:
-			$Line2D.remove_point(2)
+	if not shape_cast.is_colliding():
 		return
-	var collider: CollisionObject2D = $Line2D/ShapeCast2D.get_collider(0)
-	if collider != null and collider.get_collision_layer_value(2):
-		pass
+	var collider: CollisionObject2D = shape_cast.get_collider(0)
+	if collider == null or not collider.get_collision_layer_value(2):
+		return
+
+	shape_cast.target_position = (
+		_fire_normal.rotated(-rotation).reflect(
+			shape_cast.get_collision_normal(0)
+		)
+		* LINE_LENGTH
+	)
+	shape_cast.position = line2d.points[-1]
+	shape_cast.force_shapecast_update()
+
+	var start_point := shape_cast.position
+	var end_point := shape_cast.target_position + shape_cast.position
+	var collision_point: Vector2 = (
+		(
+			(end_point - start_point)
+			* shape_cast.get_closest_collision_safe_fraction()
+		)
+		+ start_point
+	)
+	line2d.add_point(collision_point)
 
 
 func cycle_balls() -> void:
