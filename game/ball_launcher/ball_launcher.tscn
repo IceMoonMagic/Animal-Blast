@@ -10,6 +10,10 @@ script = ExtResource("1_rc85n")
 
 [node name="Line2D" type="Line2D" parent="."]
 points = PackedVector2Array(0, 0, 0, 0)
+default_color = Color(1, 1, 1, 0.752941)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
 
 [node name="ShapeCast2D" type="ShapeCast2D" parent="Line2D"]
 shape = SubResource("CircleShape2D_hisfo")
