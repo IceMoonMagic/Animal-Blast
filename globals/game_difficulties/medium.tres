@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="GameDifficulty" load_steps=2 format=3 uid="uid://c07pad5c8jguq"]
+
+[ext_resource type="Script" uid="uid://qmiuh2gv2cdr" path="res://globals/game_difficulties/game_difficulty.gd" id="1_wi5xx"]
+
+[resource]
+script = ExtResource("1_wi5xx")
+row_size = 10
+palette_size = 6
+continuous_speed = 10.0
+metadata/_custom_type_script = "uid://qmiuh2gv2cdr"

@@ -1,35 +1,23 @@
 extends Node
 
-enum DIFFICULTY { EASY, MEDIUM, HARD }
-const DIFFICUTLY_SETTINGS: Dictionary = {
-	DIFFICULTY.EASY:
-	{
-		num_animals = 4,
-		num_rows = 7,
-	},
-	DIFFICULTY.MEDIUM:
-	{
-		num_animals = 6,
-		num_rows = 10,
-	},
-	DIFFICULTY.HARD:
-	{
-		num_animals = 8,
-		num_rows = 15,
-	}
+enum DIFFICULTY { EASY, MEDIUM, HARD, CUSTOM }
+const DIFFICUTLY_SETTINGS: Dictionary[DIFFICULTY, GameDifficulty] = {
+	DIFFICULTY.EASY: preload("res://globals/game_difficulties/easy.tres"),
+	DIFFICULTY.MEDIUM: preload("res://globals/game_difficulties/medium.tres"),
+	DIFFICULTY.HARD: preload("res://globals/game_difficulties/hard.tres")
 }
 const BallScene = preload("res://game/balls/ball.tscn")
 
 var animal_palette: AnimalPalette = AnimalPalette.new()
 var environment_palette: EnvironmentPalette = EnvironmentPalette.new()
-var difficulty: DIFFICULTY = DIFFICULTY.MEDIUM
-var difficulty_settings: Dictionary:
+var difficulty: DIFFICULTY = DIFFICULTY.EASY
+var difficulty_settings: GameDifficulty:
 	get:
 		return DIFFICUTLY_SETTINGS[difficulty]
 
 var ball_radius: float:
 	get:
-		return 640.0 / (2 * difficulty_settings["num_rows"] + 1)
+		return 640.0 / (2 * difficulty_settings.row_size + 1)
 
 
 func init_ball(
@@ -38,7 +26,7 @@ func init_ball(
 	var ball := BallScene.instantiate()
 	ball.animal = (
 		animal_palette
-		. get_limited(difficulty_settings["num_animals"])
+		. get_limited(difficulty_settings.palette_size)
 		. pick_random()
 	)
 	ball.radius = ball_radius
