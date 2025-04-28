@@ -9,7 +9,7 @@ enum MoveMode { CONTINUOUS, INTERMITTENT_WAIT, INTERMITTENT_MOVE }
 ## How many balls fit in a row. Visually, each row could hold another half ball
 @export var row_size: int:
 	get:
-		return GameMode.difficulty_settings["num_rows"]
+		return GameMode.difficulty_settings.row_size
 @export var acceleration: float = 1
 @export var max_speed: float = 30
 @export var mode: MoveMode = MoveMode.CONTINUOUS:
