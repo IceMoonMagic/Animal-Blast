@@ -84,6 +84,7 @@ func _on_lose_line_body_entered(_body: Node2D) -> void:
 	if _state == GameState.LOSE:
 		return
 	_state = GameState.LOSE
+	$BallLauncher.can_fire = false
 	game_over.emit()
 	$Balls.max_speed = 88 * 2
 	$Balls.mode = $Balls.MoveMode.CONTINUOUS
