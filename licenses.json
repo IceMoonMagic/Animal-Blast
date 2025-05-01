@@ -93,30 +93,6 @@
 			],
 			"version": "1.0",
 			"web": "www.kenney.nl"
-		},
-		{
-			"category": "Tools",
-			"contact": "",
-			"copyright": [
-				"Mike Schulze"
-			],
-			"description": "Unit Testing Framework for Godot Scripts",
-			"id": "gdunit4",
-			"licenses": [
-				{
-					"file": "res://addons/gdUnit4/LICENSE",
-					"identifier": "MIT",
-					"name": "MIT License",
-					"text": "",
-					"web": ""
-				}
-			],
-			"name": "GdUnit4",
-			"paths": [
-				"res://addons/gdUnit4"
-			],
-			"version": "4.5.0",
-			"web": "https://github.com/MikeSchulze/gdUnit4"
 		}
 	]
 }
