@@ -48,6 +48,10 @@ settings/test/test_suite_naming_convention=1
 settings/test/test_discovery=true
 ui/inspector/tree_sort_mode=1
 
+[gui]
+
+theme/custom="uid://bk5b7asbux04a"
+
 [physics]
 
 2d/default_linear_damp=0.0

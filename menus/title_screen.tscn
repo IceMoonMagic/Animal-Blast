@@ -28,6 +28,7 @@ grow_vertical = 2
 
 [node name="PlayButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 24
 text = "Play"
 
 [node name="OptionsButton" type="Button" parent="VBoxContainer"]
