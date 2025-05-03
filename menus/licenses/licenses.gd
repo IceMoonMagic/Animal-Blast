@@ -1,7 +1,5 @@
 extends Control
 
-signal close
-
 const Component := preload("res://addons/licenses/component.gd")
 const Licenses := preload("res://addons/licenses/licenses.gd")
 
@@ -26,7 +24,7 @@ func load_licenses() -> void:
 	var categories: Dictionary[String, TreeItem] = {}
 	var root: TreeItem = license_tree.create_item()
 	root.set_text(0, "Back")
-	root.set_selectable(0, false)
+	root.set_selectable(0, true)
 	root.disable_folding = true
 	categories[""] = root
 
@@ -61,8 +59,9 @@ func _apply_project_to_main(component: Component) -> void:
 
 
 func _on_tree_item_selected() -> void:
-	var component: Component = license_tree.get_selected().get_meta("component")
-	if component == null:
-		close.emit()
-	else:
-		license_info.component = component
+	if not license_tree.get_selected().has_meta("component"):
+		await get_tree().process_frame  # Avoids get_viewport error
+		get_tree().change_scene_to_file("res://menus/title_screen.tscn")
+		return
+
+	license_info.component = license_tree.get_selected().get_meta("component")

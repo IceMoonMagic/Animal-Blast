@@ -1,18 +1,24 @@
 extends Node
 
-enum DIFFICULTY { EASY, MEDIUM, HARD, CUSTOM }
-const DIFFICUTLY_SETTINGS: Dictionary[DIFFICULTY, GameDifficulty] = {
-	DIFFICULTY.EASY: preload("res://globals/game_difficulties/easy.tres"),
-	DIFFICULTY.MEDIUM: preload("res://globals/game_difficulties/medium.tres"),
-	DIFFICULTY.HARD: preload("res://globals/game_difficulties/hard.tres")
+enum Difficulty { EASY, MEDIUM, HARD, CUSTOM }
+const DIFFICUTLY_SETTINGS: Dictionary[Difficulty, GameDifficulty] = {
+	Difficulty.EASY: preload("res://globals/game_difficulties/easy.tres"),
+	Difficulty.MEDIUM: preload("res://globals/game_difficulties/medium.tres"),
+	Difficulty.HARD: preload("res://globals/game_difficulties/hard.tres")
 }
 const BallScene = preload("res://game/balls/ball.tscn")
 
 var animal_palette: AnimalPalette = AnimalPalette.new()
 var environment_palette: EnvironmentPalette = EnvironmentPalette.new()
-var difficulty: DIFFICULTY = DIFFICULTY.EASY
+var continous := false
+var custom_difficulty: GameDifficulty = (
+	DIFFICUTLY_SETTINGS[Difficulty.MEDIUM].duplicate()
+)
+var difficulty: Difficulty = Difficulty.EASY
 var difficulty_settings: GameDifficulty:
 	get:
+		if difficulty == Difficulty.CUSTOM:
+			return custom_difficulty
 		return DIFFICUTLY_SETTINGS[difficulty]
 
 var ball_radius: float:

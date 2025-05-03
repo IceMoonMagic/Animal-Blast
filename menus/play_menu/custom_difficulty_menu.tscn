@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://bqhrjjn4uhetg"]
+[gd_scene load_steps=2 format=3 uid="uid://bqhrjjn4uhetg"]
+
+[ext_resource type="Script" uid="uid://dfr1vq8fu4051" path="res://menus/play_menu/custom_difficulty_menu.gd" id="1_0exux"]
 
 [node name="CustomDifficultyMenu" type="Control"]
 layout_mode = 3
@@ -7,6 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_0exux")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -23,7 +26,7 @@ layout_mode = 2
 layout_mode = 2
 text = "Balls per Row"
 
-[node name="HSlider" type="HSlider" parent="VBoxContainer/HBoxContainer"]
+[node name="BallsPerRowSlider" type="HSlider" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = 5.0
@@ -41,7 +44,7 @@ layout_mode = 2
 layout_mode = 2
 text = "Number of Ball Types"
 
-[node name="HSlider" type="HSlider" parent="VBoxContainer/HBoxContainer2"]
+[node name="PaletteSizeSlider" type="HSlider" parent="VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = 4.0
@@ -58,7 +61,7 @@ layout_mode = 2
 layout_mode = 2
 text = "Continous Roll Speed"
 
-[node name="SpinBox" type="SpinBox" parent="VBoxContainer/HBoxContainer3"]
+[node name="ConstinousSpeedSpinBox" type="SpinBox" parent="VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = 5.0
@@ -67,6 +70,11 @@ value = 10.0
 rounded = true
 allow_greater = true
 
-[node name="Button" type="Button" parent="VBoxContainer"]
+[node name="DoneButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Done"
+
+[connection signal="value_changed" from="VBoxContainer/HBoxContainer/BallsPerRowSlider" to="." method="_on_balls_per_row_slider_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/HBoxContainer2/PaletteSizeSlider" to="." method="_on_palette_size_slider_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/HBoxContainer3/ConstinousSpeedSpinBox" to="." method="_on_constinous_speed_spin_box_value_changed"]
+[connection signal="pressed" from="VBoxContainer/DoneButton" to="." method="_on_done_button_pressed"]

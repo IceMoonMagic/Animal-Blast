@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://cobe4w1kydfqx"]
+[gd_scene load_steps=2 format=3 uid="uid://cobe4w1kydfqx"]
+
+[ext_resource type="Script" uid="uid://c7ln244qxgcr3" path="res://menus/pause_menu.gd" id="1_s0u37"]
 
 [node name="PauseMenu" type="Control"]
 layout_mode = 3
@@ -7,6 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_s0u37")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -33,3 +36,7 @@ text = "Options"
 [node name="ToTitleButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Return to Title"
+
+[connection signal="pressed" from="VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ToTitleButton" to="." method="_on_to_title_button_pressed"]
