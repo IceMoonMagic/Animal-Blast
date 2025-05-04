@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=12 format=3 uid="uid://bk5b7asbux04a"]
+[gd_resource type="Theme" load_steps=18 format=3 uid="uid://bk5b7asbux04a"]
 
 [ext_resource type="Texture2D" uid="uid://1caww6q471wg" path="res://menus/themes/ui-pack-adventure.png" id="1_ln7ww"]
 
@@ -18,6 +18,43 @@ texture_margin_right = 36.0
 texture_margin_bottom = 36.0
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q3xwb"]
+atlas = ExtResource("1_ln7ww")
+region = Rect2(304, 1200, 48, 32)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4qsvf"]
+bg_color = Color(0.427451, 0.294118, 0.152941, 1)
+border_width_left = 5
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(0.705882, 0.482353, 0.254902, 0)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3nhd0"]
+bg_color = Color(0.705882, 0.482353, 0.254902, 1)
+border_width_left = 5
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(0.705882, 0.482353, 0.254902, 0)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vm8la"]
+atlas = ExtResource("1_ln7ww")
+region = Rect2(0, 1200, 128, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5g3wx"]
+texture = SubResource("AtlasTexture_vm8la")
+texture_margin_left = 8.0
+texture_margin_top = 16.0
+texture_margin_right = 8.0
+texture_margin_bottom = 16.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ln7ww"]
 
@@ -56,6 +93,10 @@ texture = SubResource("AtlasTexture_f311a")
 texture_margin_top = 8.0
 texture_margin_bottom = 8.0
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_1733i"]
+atlas = ExtResource("1_ln7ww")
+region = Rect2(176, 1200, 128, 32)
+
 [resource]
 Button/colors/font_color = Color(0.180392, 0.203922, 0.25098, 1)
 Button/colors/font_disabled_color = Color(0.57, 0.63, 0.75, 1)
@@ -70,6 +111,11 @@ Button/styles/hover = SubResource("StyleBoxTexture_a37f7")
 Button/styles/hover_pressed = SubResource("StyleBoxTexture_a37f7")
 Button/styles/normal = SubResource("StyleBoxTexture_a37f7")
 Button/styles/pressed = SubResource("StyleBoxTexture_a37f7")
+HSlider/icons/grabber = SubResource("AtlasTexture_q3xwb")
+HSlider/icons/grabber_highlight = SubResource("AtlasTexture_q3xwb")
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_4qsvf")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_3nhd0")
+HSlider/styles/slider = SubResource("StyleBoxTexture_5g3wx")
 Label/colors/font_color = Color(0.180392, 0.203922, 0.25098, 1)
 RichTextLabel/colors/default_color = Color(0.180392, 0.203922, 0.25098, 1)
 Tree/colors/font_color = Color(0.180392, 0.203922, 0.25098, 1)
@@ -82,3 +128,4 @@ VScrollBar/styles/grabber = SubResource("StyleBoxTexture_q3xwb")
 VScrollBar/styles/grabber_highlight = SubResource("StyleBoxTexture_4qsvf")
 VScrollBar/styles/grabber_pressed = SubResource("StyleBoxTexture_q3xwb")
 VScrollBar/styles/scroll = SubResource("StyleBoxTexture_mw7wy")
+VSplitContainer/icons/grabber = SubResource("AtlasTexture_1733i")
