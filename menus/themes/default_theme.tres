@@ -1,4 +1,6 @@
-[gd_resource type="Theme" load_steps=4 format=3 uid="uid://bk5b7asbux04a"]
+[gd_resource type="Theme" load_steps=12 format=3 uid="uid://bk5b7asbux04a"]
+
+[ext_resource type="Texture2D" uid="uid://1caww6q471wg" path="res://menus/themes/ui-pack-adventure.png" id="1_ln7ww"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_a37f7"]
 load_path = "res://.godot/imported/ui-pack-adventure.png-f9db1d1066aeffaf0b2b1b272b318e81.ctex"
@@ -17,6 +19,43 @@ texture_margin_bottom = 36.0
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ln7ww"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ln7ww"]
+bg_color = Color(0.533333, 0.752941, 0.815686, 0.501961)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mw7wy"]
+atlas = ExtResource("1_ln7ww")
+region = Rect2(1120, 944, 32, 128)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_q3xwb"]
+texture = SubResource("AtlasTexture_mw7wy")
+texture_margin_top = 12.0
+texture_margin_bottom = 12.0
+expand_margin_top = 12.0
+expand_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4qsvf"]
+texture = SubResource("AtlasTexture_mw7wy")
+texture_margin_top = 12.0
+texture_margin_bottom = 12.0
+expand_margin_top = 12.0
+expand_margin_bottom = 12.0
+modulate_color = Color(1.25, 1.25, 1.25, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f311a"]
+atlas = ExtResource("1_ln7ww")
+region = Rect2(1152, 176, 32, 128)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mw7wy"]
+content_margin_left = 8.0
+content_margin_top = 12.0
+content_margin_right = 8.0
+content_margin_bottom = 12.0
+texture = SubResource("AtlasTexture_f311a")
+texture_margin_top = 8.0
+texture_margin_bottom = 8.0
+
 [resource]
 Button/colors/font_color = Color(0.180392, 0.203922, 0.25098, 1)
 Button/colors/font_disabled_color = Color(0.57, 0.63, 0.75, 1)
@@ -31,3 +70,15 @@ Button/styles/hover = SubResource("StyleBoxTexture_a37f7")
 Button/styles/hover_pressed = SubResource("StyleBoxTexture_a37f7")
 Button/styles/normal = SubResource("StyleBoxTexture_a37f7")
 Button/styles/pressed = SubResource("StyleBoxTexture_a37f7")
+Label/colors/font_color = Color(0.180392, 0.203922, 0.25098, 1)
+RichTextLabel/colors/default_color = Color(0.180392, 0.203922, 0.25098, 1)
+Tree/colors/font_color = Color(0.180392, 0.203922, 0.25098, 1)
+Tree/colors/font_hovered_color = Color(0.262745, 0.298039, 0.368627, 1)
+Tree/colors/font_selected_color = Color(0.180392, 0.203922, 0.25098, 1)
+Tree/styles/panel = SubResource("StyleBoxEmpty_ln7ww")
+Tree/styles/selected = SubResource("StyleBoxFlat_ln7ww")
+Tree/styles/selected_focus = SubResource("StyleBoxFlat_ln7ww")
+VScrollBar/styles/grabber = SubResource("StyleBoxTexture_q3xwb")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxTexture_4qsvf")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxTexture_q3xwb")
+VScrollBar/styles/scroll = SubResource("StyleBoxTexture_mw7wy")
