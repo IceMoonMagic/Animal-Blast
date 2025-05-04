@@ -1,0 +1,163 @@
+[gd_scene load_steps=17 format=3 uid="uid://8g86jd2tfh25"]
+
+[ext_resource type="Texture2D" uid="uid://1caww6q471wg" path="res://menus/themes/ui-pack-adventure.png" id="1_uepyq"]
+[ext_resource type="PackedScene" uid="uid://bhtwbv5d08e8n" path="res://game/game.tscn" id="2_dmsxg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uepyq"]
+atlas = ExtResource("1_uepyq")
+region = Rect2(768, 0, 128, 128)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dmsxg"]
+texture = SubResource("AtlasTexture_uepyq")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dmsxg"]
+atlas = ExtResource("1_uepyq")
+region = Rect2(480, 1152, 96, 48)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fbavm"]
+texture = SubResource("AtlasTexture_dmsxg")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_awk60"]
+atlas = ExtResource("1_uepyq")
+region = Rect2(480, 1152, 96, 48)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_t3fmr"]
+texture = SubResource("AtlasTexture_awk60")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+modulate_color = Color(0.75, 0.75, 0.75, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4flu8"]
+atlas = ExtResource("1_uepyq")
+region = Rect2(480, 1152, 96, 48)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qbsd8"]
+texture = SubResource("AtlasTexture_4flu8")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+modulate_color = Color(1, 0.85, 0.7, 1)
+
+[sub_resource type="InputEventKey" id="InputEventKey_uv5vi"]
+device = -1
+physical_keycode = 4194305
+
+[sub_resource type="Shortcut" id="Shortcut_2dpow"]
+events = [SubResource("InputEventKey_uv5vi")]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fbavm"]
+atlas = ExtResource("1_uepyq")
+region = Rect2(640, 128, 128, 128)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_awk60"]
+texture = SubResource("AtlasTexture_fbavm")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8crwr"]
+atlas = ExtResource("1_uepyq")
+region = Rect2(896, 0, 128, 128)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kukbh"]
+texture = SubResource("AtlasTexture_8crwr")
+texture_margin_left = 25.0
+texture_margin_top = 25.0
+texture_margin_right = 25.0
+texture_margin_bottom = 25.0
+
+[node name="GameFrame" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_dmsxg")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxTexture_fbavm")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_t3fmr")
+theme_override_styles/hover = SubResource("StyleBoxTexture_qbsd8")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_t3fmr")
+theme_override_styles/normal = SubResource("StyleBoxTexture_fbavm")
+shortcut = SubResource("Shortcut_2dpow")
+text = "||"
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button2" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxTexture_fbavm")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_t3fmr")
+theme_override_styles/hover = SubResource("StyleBoxTexture_qbsd8")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_t3fmr")
+theme_override_styles/normal = SubResource("StyleBoxTexture_fbavm")
+shortcut = SubResource("Shortcut_2dpow")
+text = "||"
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxTexture_awk60")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="VBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="SubViewport" type="SubViewport" parent="VBoxContainer/PanelContainer/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(640, 1054)
+render_target_update_mode = 4
+
+[node name="Game" parent="VBoxContainer/PanelContainer/SubViewportContainer/SubViewport" instance=ExtResource("2_dmsxg")]
+
+[node name="PanelContainer2" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_kukbh")
+
+[node name="SavedLabel" type="Label" parent="VBoxContainer/PanelContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 32
+text = "Saved: 00000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="VBoxContainer/PanelContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 32
+text = "Score: 00000"
+vertical_alignment = 1
+
+[node name="RowsLabel" type="Label" parent="VBoxContainer/PanelContainer2"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 32
+text = "Rows: 0000"
+vertical_alignment = 1
