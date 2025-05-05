@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=18 format=3 uid="uid://bk5b7asbux04a"]
+[gd_resource type="Theme" load_steps=21 format=3 uid="uid://bk5b7asbux04a"]
 
 [ext_resource type="Texture2D" uid="uid://1caww6q471wg" path="res://menus/themes/ui-pack-adventure.png" id="1_ln7ww"]
 
@@ -55,6 +55,24 @@ texture_margin_left = 8.0
 texture_margin_top = 16.0
 texture_margin_right = 8.0
 texture_margin_bottom = 16.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1733i"]
+bg_color = Color(0.427451, 0.294118, 0.152941, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4qsvf"]
+atlas = ExtResource("1_ln7ww")
+region = Rect2(768, 128, 128, 128)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3nhd0"]
+texture = SubResource("AtlasTexture_4qsvf")
+texture_margin_left = 32.0
+texture_margin_top = 32.0
+texture_margin_right = 32.0
+texture_margin_bottom = 32.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ln7ww"]
 
@@ -117,6 +135,8 @@ HSlider/styles/grabber_area = SubResource("StyleBoxFlat_4qsvf")
 HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_3nhd0")
 HSlider/styles/slider = SubResource("StyleBoxTexture_5g3wx")
 Label/colors/font_color = Color(0.180392, 0.203922, 0.25098, 1)
+LineEdit/styles/normal = SubResource("StyleBoxFlat_1733i")
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_3nhd0")
 RichTextLabel/colors/default_color = Color(0.180392, 0.203922, 0.25098, 1)
 Tree/colors/font_color = Color(0.180392, 0.203922, 0.25098, 1)
 Tree/colors/font_hovered_color = Color(0.262745, 0.298039, 0.368627, 1)
