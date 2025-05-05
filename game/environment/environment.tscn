@@ -1,47 +1,8 @@
-[gd_scene load_steps=9 format=4 uid="uid://0svo37ggabh1"]
+[gd_scene load_steps=7 format=4 uid="uid://0svo37ggabh1"]
 
 [ext_resource type="Script" uid="uid://b5p0ta81aulw4" path="res://game/environment/environment.gd" id="1_7rhqu"]
-[ext_resource type="Texture2D" uid="uid://b2vjulo47jhwr" path="res://game/environment/grounds/tilesheet.png" id="2_i45qa"]
+[ext_resource type="TileSet" uid="uid://cviwvrin6thhp" path="res://game/environment/environment_tiles.tres" id="2_i45qa"]
 [ext_resource type="PackedScene" uid="uid://b16h8ddsl8nux" path="res://game/environment/destructable.tscn" id="3_i45qa"]
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a04gb"]
-texture = ExtResource("2_i45qa")
-texture_region_size = Vector2i(128, 200)
-0:0/0 = 0
-0:0/0/terrain_set = 0
-0:0/0/terrain = 0
-1:0/0 = 0
-1:0/0/terrain_set = 0
-1:0/0/terrain = 1
-0:1/animation_speed = 8.0
-0:1/animation_frame_0/duration = 1.0
-0:1/animation_frame_1/duration = 1.0
-0:1/animation_frame_2/duration = 1.0
-0:1/animation_frame_3/duration = 1.0
-0:1/0 = 0
-0:1/0/terrain_set = 0
-0:1/0/terrain = 2
-0:2/animation_speed = 8.0
-0:2/animation_frame_0/duration = 1.0
-0:2/animation_frame_1/duration = 1.0
-0:2/animation_frame_2/duration = 1.0
-0:2/animation_frame_3/duration = 1.0
-0:2/0 = 0
-0:2/0/terrain_set = 0
-0:2/0/terrain = 3
-
-[sub_resource type="TileSet" id="TileSet_76twd"]
-tile_size = Vector2i(128, 88)
-terrain_set_0/mode = 2
-terrain_set_0/terrain_0/name = "Grass"
-terrain_set_0/terrain_0/color = Color(0.180255, 0.800183, 0.443076, 1)
-terrain_set_0/terrain_1/name = "Snow"
-terrain_set_0/terrain_1/color = Color(0.906203, 0.976547, 1, 1)
-terrain_set_0/terrain_2/name = "Water"
-terrain_set_0/terrain_2/color = Color(0.651194, 0.88275, 0.960906, 1)
-terrain_set_0/terrain_3/name = "Lava"
-terrain_set_0/terrain_3/color = Color(0.850996, 0.388373, 0.082063, 1)
-sources/0 = SubResource("TileSetAtlasSource_a04gb")
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_i45qa"]
 normal = Vector2(1, 0)
@@ -60,7 +21,7 @@ script = ExtResource("1_7rhqu")
 
 [node name="BackgroundTileMapLayer" type="TileMapLayer" parent="Background"]
 tile_map_data = PackedByteArray("AAAAAAkAAAAAAAEAAAABAAkAAAAAAAEAAAACAAkAAAAAAAEAAAADAAkAAAAAAAEAAAAEAAkAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAACAAAAAAAAAAAAAAADAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAADAAEAAAAAAAAAAAACAAEAAAAAAAAAAAABAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAIAAAAAAAAAAAABAAIAAAAAAAAAAAACAAIAAAAAAAAAAAADAAIAAAAAAAAAAAAEAAIAAAAAAAAAAAADAAMAAAAAAAAAAAACAAMAAAAAAAAAAAABAAMAAAAAAAAAAAAAAAMAAAAAAAAAAAAEAAMAAAAAAAAAAAAEAAQAAAAAAAAAAAADAAQAAAAAAAAAAAACAAQAAAAAAAAAAAABAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAUAAAAAAAAAAAABAAUAAAAAAAAAAAACAAUAAAAAAAAAAAADAAUAAAAAAAAAAAAEAAUAAAAAAAAAAAAEAAYAAAAAAAAAAAADAAYAAAAAAAAAAAACAAYAAAAAAAAAAAABAAYAAAAAAAAAAAAAAAYAAAAAAAAAAAABAAcAAAAAAAAAAAACAAcAAAAAAAAAAAADAAcAAAAAAAAAAAAEAAcAAAAAAAAAAAADAAgAAAAAAAAAAAACAAgAAAAAAAAAAAABAAgAAAAAAAAAAAAAAAgAAAAAAAAAAAAEAAgAAAAAAAAAAAAAAAcAAAAAAAAAAAAEAAsAAAAAAAAAAAADAAsAAAAAAAAAAAACAAsAAAAAAAAAAAABAAsAAAAAAAAAAAAAAAsAAAAAAAAAAAAEAAoAAAAAAAEAAAADAAoAAAAAAAEAAAACAAoAAAAAAAEAAAABAAoAAAAAAAEAAAAAAAoAAAAAAAEAAAA=")
-tile_set = SubResource("TileSet_76twd")
+tile_set = ExtResource("2_i45qa")
 
 [node name="FinalFences" type="Node2D" parent="Background"]
 
@@ -84,7 +45,7 @@ z_index = 1
 
 [node name="ForegroundTileMapLayer" type="TileMapLayer" parent="Foreground"]
 tile_map_data = PackedByteArray("AAAAAAoAAAAAAAEAAAABAAoAAAAAAAEAAAACAAoAAAAAAAEAAAADAAoAAAAAAAEAAAAEAAoAAAAAAAEAAAAAAAsAAAAAAAAAAAABAAsAAAAAAAAAAAACAAsAAAAAAAAAAAADAAsAAAAAAAAAAAAEAAsAAAAAAAAAAAA=")
-tile_set = SubResource("TileSet_76twd")
+tile_set = ExtResource("2_i45qa")
 
 [node name="DefenceFences" type="Node2D" parent="Foreground"]
 
