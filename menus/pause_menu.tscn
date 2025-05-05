@@ -1,6 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://cobe4w1kydfqx"]
+[gd_scene load_steps=4 format=3 uid="uid://cobe4w1kydfqx"]
 
 [ext_resource type="Script" uid="uid://c7ln244qxgcr3" path="res://menus/pause_menu.gd" id="1_s0u37"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_s0u37"]
+device = -1
+physical_keycode = 4194305
+
+[sub_resource type="Shortcut" id="Shortcut_p1qj3"]
+events = [SubResource("InputEventKey_s0u37")]
 
 [node name="PauseMenu" type="Control"]
 layout_mode = 3
@@ -27,6 +34,7 @@ grow_vertical = 2
 
 [node name="ResumeButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+shortcut = SubResource("Shortcut_p1qj3")
 text = "Resume"
 
 [node name="OptionsButton" type="Button" parent="VBoxContainer"]

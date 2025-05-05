@@ -1,7 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://8g86jd2tfh25"]
+[gd_scene load_steps=20 format=3 uid="uid://8g86jd2tfh25"]
 
 [ext_resource type="Texture2D" uid="uid://1caww6q471wg" path="res://menus/themes/ui-pack-adventure.png" id="1_uepyq"]
 [ext_resource type="PackedScene" uid="uid://bhtwbv5d08e8n" path="res://game/game.tscn" id="2_dmsxg"]
+[ext_resource type="Script" uid="uid://dy3miof3052w7" path="res://game/game_frame.gd" id="2_fbavm"]
+[ext_resource type="PackedScene" uid="uid://cobe4w1kydfqx" path="res://menus/pause_menu.tscn" id="3_dmsxg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uepyq"]
 atlas = ExtResource("1_uepyq")
@@ -78,6 +80,9 @@ texture_margin_top = 25.0
 texture_margin_right = 25.0
 texture_margin_bottom = 25.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fbavm"]
+bg_color = Color(0.12549, 0.12549, 0.12549, 0.501961)
+
 [node name="GameFrame" type="PanelContainer"]
 anchors_preset = 15
 anchor_right = 1.0
@@ -85,6 +90,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_dmsxg")
+script = ExtResource("2_fbavm")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -92,7 +98,7 @@ layout_mode = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer"]
+[node name="PauseButton" type="Button" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_styles/focus = SubResource("StyleBoxTexture_fbavm")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_t3fmr")
@@ -106,7 +112,7 @@ text = "||"
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button2" type="Button" parent="VBoxContainer/HBoxContainer"]
+[node name="PauseButton2" type="Button" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_styles/focus = SubResource("StyleBoxTexture_fbavm")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_t3fmr")
@@ -161,3 +167,16 @@ size_flags_vertical = 1
 theme_override_font_sizes/font_size = 32
 text = "Rows: 0000"
 vertical_alignment = 1
+
+[node name="Panel" type="Panel" parent="."]
+process_mode = 2
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_fbavm")
+
+[node name="PauseMenu" parent="Panel" instance=ExtResource("3_dmsxg")]
+layout_mode = 1
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/PauseButton" to="." method="_on_pause_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/PauseButton2" to="." method="_on_pause_button_pressed"]
+[connection signal="resume" from="Panel/PauseMenu" to="." method="_on_pause_menu_resume"]

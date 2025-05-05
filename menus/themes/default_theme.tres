@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=21 format=3 uid="uid://bk5b7asbux04a"]
+[gd_resource type="Theme" load_steps=22 format=3 uid="uid://bk5b7asbux04a"]
 
 [ext_resource type="Texture2D" uid="uid://1caww6q471wg" path="res://menus/themes/ui-pack-adventure.png" id="1_ln7ww"]
 
@@ -74,6 +74,9 @@ texture_margin_top = 32.0
 texture_margin_right = 32.0
 texture_margin_bottom = 32.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f311a"]
+bg_color = Color(0.815686, 0.529412, 0.439216, 0.501961)
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ln7ww"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ln7ww"]
@@ -141,6 +144,7 @@ RichTextLabel/colors/default_color = Color(0.180392, 0.203922, 0.25098, 1)
 Tree/colors/font_color = Color(0.180392, 0.203922, 0.25098, 1)
 Tree/colors/font_hovered_color = Color(0.262745, 0.298039, 0.368627, 1)
 Tree/colors/font_selected_color = Color(0.180392, 0.203922, 0.25098, 1)
+Tree/styles/hovered = SubResource("StyleBoxFlat_f311a")
 Tree/styles/panel = SubResource("StyleBoxEmpty_ln7ww")
 Tree/styles/selected = SubResource("StyleBoxFlat_ln7ww")
 Tree/styles/selected_focus = SubResource("StyleBoxFlat_ln7ww")

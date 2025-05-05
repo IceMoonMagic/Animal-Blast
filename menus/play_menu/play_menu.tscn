@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://cmncdq2jq22xm"]
+[gd_scene load_steps=4 format=3 uid="uid://cmncdq2jq22xm"]
 
 [ext_resource type="Script" uid="uid://c2jjya8mbt4dr" path="res://menus/play_menu/play_menu.gd" id="1_fmnve"]
+[ext_resource type="PackedScene" uid="uid://bqhrjjn4uhetg" path="res://menus/play_menu/custom_difficulty_menu.tscn" id="2_2axho"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2axho"]
+bg_color = Color(0.12549, 0.12549, 0.12549, 0.501961)
 
 [node name="PlayMenu" type="Control"]
 layout_mode = 3
@@ -63,6 +67,24 @@ offset_right = 45.0
 grow_vertical = 0
 text = "Back"
 
+[node name="Panel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2axho")
+
+[node name="CustomDifficultyMenu" parent="Panel" instance=ExtResource("2_2axho")]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -133.0
+offset_bottom = 133.0
+
 [connection signal="pressed" from="VBoxContainer/EasyButton" to="." method="_on_easy_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/MediumButton" to="." method="_on_medium_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/HardButton" to="." method="_on_hard_button_pressed"]
@@ -70,3 +92,5 @@ text = "Back"
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/CustomEditButton" to="." method="_on_custom_edit_button_pressed"]
 [connection signal="toggled" from="VBoxContainer/ContinousToggleSwitch" to="." method="_on_continous_toggle_switch_toggled"]
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="gui_input" from="Panel" to="." method="_on_panel_gui_input"]
+[connection signal="close" from="Panel/CustomDifficultyMenu" to="." method="_on_custom_difficulty_menu_close"]
