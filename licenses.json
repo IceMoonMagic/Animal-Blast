@@ -23,30 +23,6 @@
 			"web": ""
 		},
 		{
-			"category": "Addons",
-			"contact": "iceflower@gmx.de",
-			"copyright": [
-				"Iceflower S"
-			],
-			"description": "Manage license and copyright for third party graphics, software or libraries.",
-			"id": "license_manager",
-			"licenses": [
-				{
-					"file": "res://addons/licenses/LICENSE.md",
-					"identifier": "MIT",
-					"name": "MIT License",
-					"text": "",
-					"web": ""
-				}
-			],
-			"name": "License Manager",
-			"paths": [
-				"res://addons/licenses"
-			],
-			"version": "1.9.0",
-			"web": "https://github.com/kenyoni-software/godot-addons"
-		},
-		{
 			"category": "Assets",
 			"contact": "",
 			"copyright": [
@@ -93,6 +69,54 @@
 			],
 			"version": "1.0",
 			"web": "www.kenney.nl"
+		},
+		{
+			"category": "Assets",
+			"contact": "",
+			"copyright": [
+				"Kenney"
+			],
+			"description": "",
+			"id": "ui-pack-adventure",
+			"licenses": [
+				{
+					"file": "",
+					"identifier": "CC0",
+					"name": "Creative Commons Zero",
+					"text": "\n\n\tUI Pack - Adventure (1.1)\n\n\tCreated/distributed by Kenney (www.kenney.nl)\n\tCreation date: 13-08-2024\n\n\t\t\t------------------------------\n\n\tLicense: (Creative Commons Zero, CC0)\n\thttp://creativecommons.org/publicdomain/zero/1.0/\n\n\tYou can use this content for personal, educational, and commercial purposes.\n\n\tSupport by crediting 'Kenney' or 'www.kenney.nl' (this is not a requirement)\n\n\t\t\t------------------------------\n\n\t• Website : www.kenney.nl\n\t• Donate  : www.kenney.nl/donate\n\n\t• Patreon : patreon.com/kenney\n\t\n\tFollow on social media for updates:\n\n\t• Twitter:\ttwitter.com/KenneyNL\n\t• Instagram: \tinstagram.com/kenney_nl\n\t• Mastodon:\tmastodon.gamedev.place/@kenney",
+					"web": ""
+				}
+			],
+			"name": "UI Pack - Adventure",
+			"paths": [
+				"res://menus/themes/ui-pack-adventure.png"
+			],
+			"version": "1.1",
+			"web": "www.kenney.nl"
+		},
+		{
+			"category": "Tools - Addons",
+			"contact": "iceflower@gmx.de",
+			"copyright": [
+				"Iceflower S"
+			],
+			"description": "Manage license and copyright for third party graphics, software or libraries.",
+			"id": "license_manager",
+			"licenses": [
+				{
+					"file": "res://addons/licenses/LICENSE.md",
+					"identifier": "MIT",
+					"name": "MIT License",
+					"text": "",
+					"web": ""
+				}
+			],
+			"name": "License Manager",
+			"paths": [
+				"res://addons/licenses"
+			],
+			"version": "1.9.0",
+			"web": "https://github.com/kenyoni-software/godot-addons"
 		}
 	]
 }
