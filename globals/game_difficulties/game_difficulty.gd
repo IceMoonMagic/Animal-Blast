@@ -7,6 +7,7 @@ extends Resource
 		palette_size = clampi(val, 4, 8)
 		emit_changed()
 @export_range(5, 30, 1.0, "or_greater") var continuous_speed: float = 10
+@export_range(0, 10, 1.0, "or_greater") var allowed_strikes: int = 3
 
 @warning_ignore("shadowed_variable")
 
@@ -14,8 +15,10 @@ extends Resource
 func _init(
 	row_size: int = self.row_size,
 	palette_size: int = self.palette_size,
-	continuous_speed: float = self.continuous_speed
+	continuous_speed: float = self.continuous_speed,
+	allowed_strikes: int = self.allowed_strikes,
 ) -> void:
 	self.row_size = row_size
 	self.palette_size = palette_size
 	self.continuous_speed = continuous_speed
+	self.allowed_strikes = allowed_strikes

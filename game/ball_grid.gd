@@ -1,3 +1,4 @@
+class_name BallGrid
 extends Node2D
 ## The grid of balls, using pointy-top hexagon doubled cooridnates.
 ## [br]https://www.redblobgames.com/grids/hexagons/#coordinates-doubled
@@ -12,19 +13,21 @@ enum MoveMode { CONTINUOUS, INTERMITTENT_WAIT, INTERMITTENT_MOVE }
 		return GameMode.difficulty_settings.row_size
 @export var acceleration: float = 1
 @export var max_speed: float = 30
-@export var mode: MoveMode = MoveMode.CONTINUOUS:
+@export var mode: MoveMode = (
+	MoveMode.CONTINUOUS if GameMode.continous else MoveMode.INTERMITTENT_WAIT
+):
 	set(new_mode):
 		match new_mode:
 			MoveMode.CONTINUOUS:
 				pass
 			MoveMode.INTERMITTENT_MOVE:
-				_speed = max_speed
+				_speed = max_speed * 2
 				if _row_offset >= 0:
 					push_row()
 			MoveMode.INTERMITTENT_WAIT:
 				_speed = 0
 		if mode == MoveMode.INTERMITTENT_MOVE and mode != new_mode:
-			intermittent_move_done.emit()
+			intermittent_move_done.emit.call_deferred()
 		mode = new_mode
 ## Animals allowed to be used
 var pop_queue: Array[Ball] = []
@@ -131,6 +134,8 @@ func push_row() -> void:
 
 	balls.push_front(result)
 	_row_offset -= _ball_radius * sqrt(3)
+	if mode == MoveMode.INTERMITTENT_WAIT:
+		mode = MoveMode.INTERMITTENT_MOVE
 
 
 #endregion

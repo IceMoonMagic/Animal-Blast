@@ -1,3 +1,4 @@
+class_name Game
 extends Node2D
 
 signal warning_triggered
@@ -6,10 +7,12 @@ signal game_over
 
 enum GameState { AIMING, FLYING, WAITING, WIN, LOSE }
 
+var game_status := GameStatus.new()
 var _in_warning := false
 var _state := GameState.WAITING
 var _fly_speed := 360.0
 var _flying_ball: Ball
+@onready var balls: BallGrid = $Balls
 @onready var launcher: BallLanucher = $BallLauncher
 
 
@@ -26,6 +29,12 @@ func _ready() -> void:
 	$Environment/LoseLine/Line2D.position = Vector2(
 		0, TILE_SIZE * 9 + FENCE_COMPENSATION + radius_compisation
 	)
+	if not GameMode.continous:
+		for _i: int in range(5):
+			balls.push_row()
+			launcher.can_fire = false
+			await balls.intermittent_move_done
+			launcher.can_fire = true
 
 
 func _physics_process(delta: float) -> void:
@@ -39,12 +48,26 @@ func _physics_process(delta: float) -> void:
 		if collision == null or collision.get_collider() == null:
 			break
 		elif collision.get_collider() != get_node("Environment/Edges"):
+			var pop_queue_length := len(balls.pop_queue)
 			$Balls.place_ball(
 				_flying_ball, $Balls.coords_to_index(_flying_ball.position)
 			)
 			_flying_ball = null
 			_state = GameState.WAITING
 			launcher.can_fire = true
+			var popped: int = maxi(len(balls.pop_queue) - pop_queue_length, 0)
+			game_status.saved += popped
+			if popped == 0 and not GameMode.continous:
+				game_status.strikes += 1
+				if (
+					game_status.strikes
+					>= GameMode.difficulty_settings.allowed_strikes
+				):
+					balls.push_row()
+					launcher.can_fire = false
+					await balls.intermittent_move_done
+					launcher.can_fire = true
+					game_status.strikes = 0
 			break
 		else:
 			remaining_movement = collision.get_remainder().length()
@@ -89,3 +112,16 @@ func _on_lose_line_body_entered(_body: Node2D) -> void:
 	$Balls.max_speed = 88 * 2
 	$Balls.mode = $Balls.MoveMode.CONTINUOUS
 	$Environment/LoseLine.set_deferred("monitoring", false)
+
+
+class GameStatus:
+	var rows: int = 0
+	var saved: int = 0:
+		set(val):
+			saved = val
+			score += floori((val * (val + 1)) / 2.0)
+
+	var score: int = 0
+
+	var strikes: int = 0  # Progress on intermittent
+	var bouncer: float = 0.0  # Progress on continous

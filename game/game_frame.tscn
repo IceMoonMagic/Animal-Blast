@@ -137,6 +137,7 @@ size = Vector2i(640, 1054)
 render_target_update_mode = 4
 
 [node name="Game" parent="VBoxContainer/PanelContainer/SubViewportContainer/SubViewport" instance=ExtResource("2_dmsxg")]
+unique_name_in_owner = true
 
 [node name="PanelContainer2" type="PanelContainer" parent="VBoxContainer"]
 layout_mode = 2

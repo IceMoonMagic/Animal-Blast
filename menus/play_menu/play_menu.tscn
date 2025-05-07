@@ -59,7 +59,7 @@ text = "Custom"
 
 [node name="CustomEditButton" type="Button" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
-text = "@"
+text = "⚙"
 
 [node name="ContinousToggleSwitch" type="CheckButton" parent="VBoxContainer"]
 layout_mode = 2
