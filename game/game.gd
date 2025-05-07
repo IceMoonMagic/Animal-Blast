@@ -68,6 +68,15 @@ func _physics_process(delta: float) -> void:
 					await balls.intermittent_move_done
 					launcher.can_fire = true
 					game_status.strikes = 0
+			elif (
+				(
+					balls.balls_remaining
+					<= (GameMode.difficulty_settings.row_size * 1.5)
+				)
+				and not _in_warning
+				and not GameMode.continous
+			):
+				balls.push_row()
 			break
 		else:
 			remaining_movement = collision.get_remainder().length()
@@ -114,12 +123,19 @@ func _on_lose_line_body_entered(_body: Node2D) -> void:
 	$Environment/LoseLine.set_deferred("monitoring", false)
 
 
+func _on_balls_row_pushed() -> void:
+	if _state != GameState.LOSE:
+		game_status.rows += 1
+		game_status.strikes = 0
+
+
 class GameStatus:
 	var rows: int = 0
 	var saved: int = 0:
 		set(val):
+			var change := val - saved
 			saved = val
-			score += floori((val * (val + 1)) / 2.0)
+			score += floori((change * (change + 1)) / 2.0)
 
 	var score: int = 0
 

@@ -5,6 +5,7 @@ extends Node2D
 
 ## Emitted when mode changes off of INTERMITTENT_MOVE
 signal intermittent_move_done
+signal row_pushed
 enum MoveMode { CONTINUOUS, INTERMITTENT_WAIT, INTERMITTENT_MOVE }
 
 ## How many balls fit in a row. Visually, each row could hold another half ball
@@ -32,6 +33,14 @@ enum MoveMode { CONTINUOUS, INTERMITTENT_WAIT, INTERMITTENT_MOVE }
 ## Animals allowed to be used
 var pop_queue: Array[Ball] = []
 var balls: Array[Array] = []
+var balls_remaining: int:
+	get:
+		var counter: int = 0
+		for row: Array[Ball] in balls:
+			for ball: Ball in row:
+				if ball != null:
+					counter += 1
+		return counter
 var _row_offset: float = 0.0
 var _ball_radius: float:
 	get:
@@ -136,6 +145,7 @@ func push_row() -> void:
 	_row_offset -= _ball_radius * sqrt(3)
 	if mode == MoveMode.INTERMITTENT_WAIT:
 		mode = MoveMode.INTERMITTENT_MOVE
+	row_pushed.emit()
 
 
 #endregion

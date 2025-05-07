@@ -45,4 +45,5 @@ position = Vector2(320, 1056)
 [connection signal="body_entered" from="Environment/WarningLine" to="." method="_on_warning_line_body_interacted"]
 [connection signal="body_exited" from="Environment/WarningLine" to="." method="_on_warning_line_body_interacted"]
 [connection signal="body_entered" from="Environment/LoseLine" to="." method="_on_lose_line_body_entered"]
+[connection signal="row_pushed" from="Balls" to="." method="_on_balls_row_pushed"]
 [connection signal="ball_fired" from="BallLauncher" to="." method="_on_ball_launcher_ball_fired"]
