@@ -1,12 +1,25 @@
-[gd_scene load_steps=3 format=3 uid="uid://bhg08vpqequav"]
+[gd_scene load_steps=6 format=3 uid="uid://bhg08vpqequav"]
 
 [ext_resource type="Script" uid="uid://c4eoa8udvkhgf" path="res://game/ball_launcher/ball_launcher.gd" id="1_rc85n"]
+[ext_resource type="Texture2D" uid="uid://1caww6q471wg" path="res://menus/themes/ui-pack-adventure.png" id="2_rtgll"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ohpqe"]
+atlas = ExtResource("2_rtgll")
+region = Rect2(512, 384, 128, 128)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hisfo"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_rtgll"]
+atlas = ExtResource("2_rtgll")
+region = Rect2(128, 1120, 32, 32)
+
 [node name="BallLauncher" type="Node2D"]
+z_index = 2
 rotation = -1.5708
 script = ExtResource("1_rc85n")
+
+[node name="SpareHolder" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_ohpqe")
 
 [node name="Line2D" type="Line2D" parent="."]
 points = PackedVector2Array(0, 0, 0, 0)
@@ -18,3 +31,12 @@ end_cap_mode = 2
 [node name="ShapeCast2D" type="ShapeCast2D" parent="Line2D"]
 shape = SubResource("CircleShape2D_hisfo")
 collision_mask = 3
+
+[node name="Pivot" type="Node2D" parent="."]
+
+[node name="LauncherArrow" type="Sprite2D" parent="Pivot"]
+rotation = -3.14159
+texture = SubResource("AtlasTexture_rtgll")
+
+[node name="Marker2D" type="Marker2D" parent="Pivot/LauncherArrow"]
+rotation = -1.5708

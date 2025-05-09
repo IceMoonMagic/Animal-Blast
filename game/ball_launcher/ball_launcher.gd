@@ -27,13 +27,26 @@ var _fire_normal: Vector2:
 	get:
 		return Vector2(cos(_current_angle_rad), sin(_current_angle_rad))
 
+@onready var spare_holder: Sprite2D = $SpareHolder
 @onready var line2d: Line2D = $Line2D
 @onready var shape_cast: ShapeCast2D = $Line2D/ShapeCast2D
+@onready var pivot: Node2D = $Pivot
+@onready var launcher_arrow: Sprite2D = $Pivot/LauncherArrow
+@onready var marker_2d: Marker2D = $Pivot/LauncherArrow/Marker2D
 
 
 func _ready() -> void:
+	spare_holder.scale = (
+		Vector2.ONE / spare_holder.get_rect().size * (GameMode.ball_radius * 3)
+	)
 	shape_cast.shape.radius = GameMode.ball_radius
 	line2d.width = GameMode.ball_radius * 2
+	launcher_arrow.position.y = GameMode.ball_radius * 2
+	marker_2d.position.y = (
+		-launcher_arrow.position.y
+		- launcher_arrow.get_rect().size.y / 2
+		+ GameMode.ball_radius
+	)
 	if ball_on_deck == null:
 		cycle_balls()
 	if ball_current == null:
@@ -44,6 +57,8 @@ func _physics_process(_delta: float) -> void:
 	const LINE_LENGTH := 2000
 	line2d.visible = can_fire
 	_current_angle_rad = (get_global_mouse_position() - position).angle()
+
+	pivot.rotation = _current_angle_rad
 
 	shape_cast.position = Vector2.ZERO
 	shape_cast.target_position = _fire_normal.rotated(-rotation) * LINE_LENGTH
@@ -85,6 +100,8 @@ func _physics_process(_delta: float) -> void:
 
 func cycle_balls() -> void:
 	ball_current = ball_on_deck
+	if ball_current != null:
+		ball_current.reparent(marker_2d, false)
 	ball_on_deck = GameMode.init_ball()
 	ball_on_deck.rotation = -rotation
 	ball_on_deck.set_collision_layer_value(1, false)
