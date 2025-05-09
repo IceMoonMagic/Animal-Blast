@@ -38,6 +38,7 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	update_bouncer_status()
 	if _flying_ball == null:
 		return
 	var remaining_movement: float = _fly_speed * delta
@@ -76,7 +77,9 @@ func _physics_process(delta: float) -> void:
 				and not _in_warning
 				and not GameMode.continous
 			):
+				launcher.can_fire = false
 				balls.push_row()
+				launcher.can_fire = true
 			break
 		else:
 			remaining_movement = collision.get_remainder().length()
@@ -85,6 +88,16 @@ func _physics_process(delta: float) -> void:
 				. constant_linear_velocity
 				. bounce(collision.get_normal())
 			)
+
+
+func update_bouncer_status() -> void:
+	game_status.bouncer = clampf(
+		remap(balls._row_offset, 0, -balls._ball_radius * sqrt(3), 0, 1), 0, 1
+	)
+	if balls._hex_grid_row_offset:
+		game_status.bouncer = 1 - game_status.bouncer
+	if _state == GameState.LOSE:
+		game_status.bouncer = 0.5
 
 
 func _input(event: InputEvent) -> void:

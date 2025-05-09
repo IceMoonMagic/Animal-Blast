@@ -1,8 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://8g86jd2tfh25"]
+[gd_scene load_steps=21 format=3 uid="uid://8g86jd2tfh25"]
 
 [ext_resource type="Texture2D" uid="uid://1caww6q471wg" path="res://menus/themes/ui-pack-adventure.png" id="1_uepyq"]
 [ext_resource type="PackedScene" uid="uid://bhtwbv5d08e8n" path="res://game/game.tscn" id="2_dmsxg"]
 [ext_resource type="Script" uid="uid://dy3miof3052w7" path="res://game/game_frame.gd" id="2_fbavm"]
+[ext_resource type="PackedScene" uid="uid://bd5q5pdm7ao4s" path="res://game/strike_progress_bar.tscn" id="3_awk60"]
 [ext_resource type="PackedScene" uid="uid://cobe4w1kydfqx" path="res://menus/pause_menu.tscn" id="3_dmsxg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uepyq"]
@@ -108,7 +109,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_fbavm")
 shortcut = SubResource("Shortcut_2dpow")
 text = "||"
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="VBoxContainer/HBoxContainer"]
+[node name="StrikeBar" parent="VBoxContainer/HBoxContainer" instance=ExtResource("3_awk60")]
 layout_mode = 2
 size_flags_horizontal = 3
 
