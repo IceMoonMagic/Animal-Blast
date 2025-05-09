@@ -11,6 +11,7 @@ func _process(_delta: float) -> void:
 	score_label.text = "Score: " + str(game.game_status.score).pad_zeros(4)
 	rows_label.text = "Rows: " + str(game.game_status.rows).pad_zeros(3)
 	strike_bar.value = game.game_status.bouncer
+	strike_bar.strikes = game.game_status.strikes
 
 
 func _on_pause_button_pressed() -> void:

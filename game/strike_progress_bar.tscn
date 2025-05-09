@@ -1,7 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://bd5q5pdm7ao4s"]
+[gd_scene load_steps=9 format=3 uid="uid://bd5q5pdm7ao4s"]
 
 [ext_resource type="Texture2D" uid="uid://1caww6q471wg" path="res://menus/themes/ui-pack-adventure.png" id="1_724m4"]
 [ext_resource type="Script" uid="uid://dbnplq1u16qn0" path="res://game/strike_progress_bar.gd" id="2_628g7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p3c0u"]
+atlas = ExtResource("1_724m4")
+region = Rect2(352, 1120, 32, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_628g7"]
+load_path = "res://.godot/imported/ui-pack-adventure.png-f9db1d1066aeffaf0b2b1b272b318e81.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2untf"]
+atlas = SubResource("CompressedTexture2D_628g7")
+region = Rect2(448, 1120, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_628g7"]
 atlas = ExtResource("1_724m4")
@@ -89,9 +100,11 @@ rounded = false
 allow_greater = false
 allow_lesser = false
 script = ExtResource("2_628g7")
+empty_texture = SubResource("AtlasTexture_p3c0u")
+strike_texture = SubResource("AtlasTexture_2untf")
 metadata/_custom_type_script = "uid://dbnplq1u16qn0"
 
-[node name="Panel" type="Panel" parent="."]
+[node name="BouncerBar" type="Panel" parent="."]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 1
 anchors_preset = 14
@@ -102,7 +115,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_p3c0u")
 
-[node name="NinePatchRect" type="TextureRect" parent="Panel"]
+[node name="Bouncer" type="TextureRect" parent="BouncerBar"]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -115,7 +128,8 @@ grow_vertical = 2
 scale = Vector2(0.75, 0.75)
 texture = SubResource("AtlasTexture_sc4u4")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="StrikeBar" type="HBoxContainer" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
@@ -123,6 +137,7 @@ anchor_right = 1.0
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+[node name="StrikeTemplate" type="TextureRect" parent="StrikeBar"]
 layout_mode = 2
