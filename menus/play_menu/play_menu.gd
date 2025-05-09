@@ -26,8 +26,8 @@ func _on_custom_edit_button_pressed() -> void:
 	$Panel.show()
 
 
-func _on_continous_toggle_switch_toggled(toggled_on: bool) -> void:
-	GameMode.continous = toggled_on
+func _on_continuous_toggle_switch_toggled(toggled_on: bool) -> void:
+	GameMode.continuous = toggled_on
 
 
 func _on_back_button_pressed() -> void:

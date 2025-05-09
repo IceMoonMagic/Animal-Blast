@@ -33,7 +33,7 @@ var _strike_markers: Array[TextureRect] = []
 
 
 func _ready() -> void:
-	if not GameMode.continous:
+	if not GameMode.continuous:
 		strike_template.texture = empty_texture
 		_strike_markers = [strike_template]
 		for _i in range(1, max_strikes):
@@ -41,12 +41,12 @@ func _ready() -> void:
 			strike_bar.add_child(strike_marker)
 			_strike_markers.append(strike_marker)
 
-	bouncer_bar.visible = GameMode.continous
-	strike_bar.visible = not GameMode.continous
+	bouncer_bar.visible = GameMode.continuous
+	strike_bar.visible = not GameMode.continuous
 
 
 func _process(delta: float) -> void:
-	if GameMode.continous:
+	if GameMode.continuous:
 		_display_value = move_toward(_display_value, value, delta)
 		bouncer.position.x = (
 			(max_position - MIN_POSITION) * _display_value + MIN_POSITION

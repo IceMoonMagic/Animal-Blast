@@ -15,7 +15,7 @@ enum MoveMode { CONTINUOUS, INTERMITTENT_WAIT, INTERMITTENT_MOVE }
 @export var acceleration: float = 1
 @export var max_speed: float = 30
 @export var mode: MoveMode = (
-	MoveMode.CONTINUOUS if GameMode.continous else MoveMode.INTERMITTENT_WAIT
+	MoveMode.CONTINUOUS if GameMode.continuous else MoveMode.INTERMITTENT_WAIT
 ):
 	set(new_mode):
 		match new_mode:

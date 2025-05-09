@@ -10,7 +10,7 @@ const BallScene = preload("res://game/balls/ball.tscn")
 
 var animal_palette: AnimalPalette = AnimalPalette.new()
 var environment_palette: EnvironmentPalette = EnvironmentPalette.new()
-var continous := false
+var continuous := false
 var custom_difficulty: GameDifficulty = (
 	DIFFICUTLY_SETTINGS[Difficulty.MEDIUM].duplicate()
 )

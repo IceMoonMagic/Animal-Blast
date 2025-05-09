@@ -61,9 +61,9 @@ text = "Custom"
 layout_mode = 2
 text = "⚙"
 
-[node name="ContinousToggleSwitch" type="CheckButton" parent="VBoxContainer"]
+[node name="ContinuousToggleSwitch" type="CheckButton" parent="VBoxContainer"]
 layout_mode = 2
-text = "Continous Movement"
+text = "Continuous Movement"
 
 [node name="BackButton" type="Button" parent="."]
 layout_mode = 1
@@ -98,7 +98,7 @@ offset_bottom = 133.0
 [connection signal="pressed" from="VBoxContainer/HardButton" to="." method="_on_hard_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/CustomButton" to="." method="_on_custom_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/CustomEditButton" to="." method="_on_custom_edit_button_pressed"]
-[connection signal="toggled" from="VBoxContainer/ContinousToggleSwitch" to="." method="_on_continous_toggle_switch_toggled"]
+[connection signal="toggled" from="VBoxContainer/ContinuousToggleSwitch" to="." method="_on_continuous_toggle_switch_toggled"]
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="gui_input" from="Panel" to="." method="_on_panel_gui_input"]
 [connection signal="close" from="Panel/CustomDifficultyMenu" to="." method="_on_custom_difficulty_menu_close"]

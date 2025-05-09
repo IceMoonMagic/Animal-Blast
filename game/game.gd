@@ -29,7 +29,7 @@ func _ready() -> void:
 	$Environment/LoseLine/Line2D.position = Vector2(
 		0, TILE_SIZE * 9 + FENCE_COMPENSATION + radius_compisation
 	)
-	if not GameMode.continous:
+	if not GameMode.continuous:
 		for _i: int in range(5):
 			balls.push_row()
 			launcher.can_fire = false
@@ -58,7 +58,7 @@ func _physics_process(delta: float) -> void:
 			launcher.can_fire = true
 			var popped: int = maxi(len(balls.pop_queue) - pop_queue_length, 0)
 			game_status.saved += popped
-			if popped == 0 and not GameMode.continous:
+			if popped == 0 and not GameMode.continuous:
 				game_status.strikes += 1
 				if (
 					game_status.strikes
@@ -75,7 +75,7 @@ func _physics_process(delta: float) -> void:
 					<= (GameMode.difficulty_settings.row_size * 1.5)
 				)
 				and not _in_warning
-				and not GameMode.continous
+				and not GameMode.continuous
 			):
 				launcher.can_fire = false
 				balls.push_row()
@@ -153,4 +153,4 @@ class GameStatus:
 	var score: int = 0
 
 	var strikes: int = 0  # Progress on intermittent
-	var bouncer: float = 0.0  # Progress on continous
+	var bouncer: float = 0.0  # Progress on continuous
