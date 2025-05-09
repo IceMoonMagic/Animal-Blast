@@ -101,13 +101,15 @@ layout_mode = 2
 
 [node name="PauseButton" type="Button" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
 theme_override_styles/focus = SubResource("StyleBoxTexture_fbavm")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_t3fmr")
 theme_override_styles/hover = SubResource("StyleBoxTexture_qbsd8")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_t3fmr")
 theme_override_styles/normal = SubResource("StyleBoxTexture_fbavm")
 shortcut = SubResource("Shortcut_2dpow")
-text = "||"
+text = "⏸"
 
 [node name="StrikeBar" parent="VBoxContainer/HBoxContainer" instance=ExtResource("3_awk60")]
 layout_mode = 2
@@ -115,13 +117,15 @@ size_flags_horizontal = 3
 
 [node name="PauseButton2" type="Button" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
 theme_override_styles/focus = SubResource("StyleBoxTexture_fbavm")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_t3fmr")
 theme_override_styles/hover = SubResource("StyleBoxTexture_qbsd8")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_t3fmr")
 theme_override_styles/normal = SubResource("StyleBoxTexture_fbavm")
 shortcut = SubResource("Shortcut_2dpow")
-text = "||"
+text = "⏸"
 
 [node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
 layout_mode = 2
