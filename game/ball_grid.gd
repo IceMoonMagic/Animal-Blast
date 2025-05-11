@@ -13,7 +13,6 @@ enum MoveMode { CONTINUOUS, INTERMITTENT_WAIT, INTERMITTENT_MOVE }
 	get:
 		return GameMode.difficulty_settings.row_size
 @export var acceleration: float = 1
-@export var max_speed: float = 30
 @export var mode: MoveMode = (
 	MoveMode.CONTINUOUS if GameMode.continuous else MoveMode.INTERMITTENT_WAIT
 ):
@@ -22,7 +21,7 @@ enum MoveMode { CONTINUOUS, INTERMITTENT_WAIT, INTERMITTENT_MOVE }
 			MoveMode.CONTINUOUS:
 				pass
 			MoveMode.INTERMITTENT_MOVE:
-				_speed = max_speed * 2
+				_speed = max_speed
 				if _row_offset >= 0:
 					push_row()
 			MoveMode.INTERMITTENT_WAIT:
@@ -30,6 +29,12 @@ enum MoveMode { CONTINUOUS, INTERMITTENT_WAIT, INTERMITTENT_MOVE }
 		if mode == MoveMode.INTERMITTENT_MOVE and mode != new_mode:
 			intermittent_move_done.emit.call_deferred()
 		mode = new_mode
+var max_speed: float:
+	get:
+		if GameMode.continuous:
+			return GameMode.difficulty_settings.continuous_speed
+		else:
+			return GameMode.ball_radius * 1.5
 ## Animals allowed to be used
 var pop_queue: Array[Ball] = []
 var balls: Array[Array] = []
