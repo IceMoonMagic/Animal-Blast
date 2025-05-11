@@ -42,7 +42,7 @@ func _ready() -> void:
 			_strike_markers.append(strike_marker)
 
 	bouncer_bar.visible = GameMode.continuous
-	strike_bar.visible = not GameMode.continuous
+	strike_bar.visible = not GameMode.continuous and max_strikes > 0
 
 
 func _process(delta: float) -> void:

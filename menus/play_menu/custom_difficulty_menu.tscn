@@ -12,16 +12,17 @@ script = ExtResource("1_0exux")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
-size_flags_vertical = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 4
+columns = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "Balls per Row"
 
-[node name="BallsPerRowSlider" type="HSlider" parent="VBoxContainer/HBoxContainer"]
+[node name="BallsPerRowSlider" type="HSlider" parent="VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = 5.0
@@ -32,14 +33,11 @@ allow_greater = true
 tick_count = 11
 ticks_on_borders = true
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2"]
+[node name="Label2" type="Label" parent="VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "Number of Ball Types"
 
-[node name="PaletteSizeSlider" type="HSlider" parent="VBoxContainer/HBoxContainer2"]
+[node name="PaletteSizeSlider" type="HSlider" parent="VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = 4.0
@@ -49,14 +47,11 @@ rounded = true
 tick_count = 5
 ticks_on_borders = true
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer3"]
+[node name="Label3" type="Label" parent="VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "Continuous Roll Speed"
 
-[node name="ConstinousSpeedSpinBox" type="SpinBox" parent="VBoxContainer/HBoxContainer3"]
+[node name="ConstinousSpeedSpinBox" type="SpinBox" parent="VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = 5.0
@@ -65,11 +60,25 @@ value = 10.0
 rounded = true
 allow_greater = true
 
+[node name="Label4" type="Label" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Strikes Until Next Roll"
+
+[node name="StrikesSpinBox" type="SpinBox" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 5.0
+value = 3.0
+rounded = true
+allow_greater = true
+
 [node name="DoneButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Done"
 
-[connection signal="value_changed" from="VBoxContainer/HBoxContainer/BallsPerRowSlider" to="." method="_on_balls_per_row_slider_value_changed"]
-[connection signal="value_changed" from="VBoxContainer/HBoxContainer2/PaletteSizeSlider" to="." method="_on_palette_size_slider_value_changed"]
-[connection signal="value_changed" from="VBoxContainer/HBoxContainer3/ConstinousSpeedSpinBox" to="." method="_on_constinous_speed_spin_box_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/GridContainer/BallsPerRowSlider" to="." method="_on_balls_per_row_slider_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/GridContainer/PaletteSizeSlider" to="." method="_on_palette_size_slider_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/GridContainer/ConstinousSpeedSpinBox" to="." method="_on_constinous_speed_spin_box_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/GridContainer/StrikesSpinBox" to="." method="_on_strikes_spin_box_value_changed"]
 [connection signal="pressed" from="VBoxContainer/DoneButton" to="." method="_on_done_button_pressed"]
