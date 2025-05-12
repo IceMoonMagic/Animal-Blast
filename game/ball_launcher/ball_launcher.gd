@@ -26,6 +26,7 @@ var _current_angle_rad: float:
 var _fire_normal: Vector2:
 	get:
 		return Vector2(cos(_current_angle_rad), sin(_current_angle_rad))
+var _ball_random_pool: RandomPool
 
 @onready var spare_holder: Sprite2D = $SpareHolder
 @onready var line2d: Line2D = $Line2D
@@ -36,6 +37,15 @@ var _fire_normal: Vector2:
 
 
 func _ready() -> void:
+	_ball_random_pool = RandomPool.new(
+		GameMode.animal_palette.get_limited(
+			GameMode.difficulty_settings.palette_size
+		),
+		3
+	)
+	for animal: Ball.Animal in _ball_random_pool.items.duplicate():
+		_ball_random_pool.items.append(animal)
+
 	spare_holder.scale = (
 		Vector2.ONE / spare_holder.get_rect().size * (GameMode.ball_radius * 3)
 	)
@@ -103,6 +113,7 @@ func cycle_balls() -> void:
 	if ball_current != null:
 		ball_current.reparent(marker_2d, false)
 	ball_on_deck = GameMode.init_ball()
+	ball_on_deck.animal = _ball_random_pool.get_item()
 	ball_on_deck.rotation = -rotation
 	ball_on_deck.set_collision_layer_value(1, false)
 	ball_on_deck.set_collision_mask_value(1, true)

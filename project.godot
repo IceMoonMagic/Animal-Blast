@@ -38,6 +38,7 @@ enabled=PackedStringArray("res://addons/licenses/plugin.cfg")
 
 folder_colors={
 "res://addons/": "red",
+"res://common/": "pink",
 "res://game/": "blue",
 "res://globals/": "purple",
 "res://menus/": "green"
