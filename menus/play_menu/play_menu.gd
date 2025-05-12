@@ -1,6 +1,10 @@
 extends Control
 
 
+func _ready() -> void:
+	$VBoxContainer/ContinuousToggleSwitch.button_pressed = GameMode.continuous
+
+
 func _start_game(difficulty: GameMode.Difficulty) -> void:
 	GameMode.difficulty = difficulty
 	get_tree().change_scene_to_file("res://game/game_frame.tscn")
