@@ -74,7 +74,9 @@ func _physics_process(_delta: float) -> void:
 	shape_cast.target_position = _fire_normal.rotated(-rotation) * LINE_LENGTH
 	shape_cast.force_shapecast_update()
 	line2d.clear_points()
-	line2d.add_point(Vector2.ZERO)
+	line2d.add_point(
+		(marker_2d.global_position - line2d.global_position).rotated(-rotation)
+	)
 	line2d.add_point(
 		(
 			shape_cast.get_closest_collision_unsafe_fraction()
