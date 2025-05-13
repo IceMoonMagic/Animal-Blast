@@ -49,9 +49,7 @@ var balls_remaining: int:
 					counter += 1
 		return counter
 var _row_offset: float = 0.0
-var _ball_radius: float:
-	get:
-		return 640.0 / (2 * row_size + 1)
+var _ball_radius: float = GameMode.ball_radius
 var _speed: float = 0
 var _hex_grid_row_offset: bool = false
 
