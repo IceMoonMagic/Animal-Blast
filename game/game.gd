@@ -87,7 +87,7 @@ func _place_ball(_collision: KinematicCollision2D) -> void:
 		balls.push_row()
 		await balls.intermittent_move_done
 		game_status.strikes = 0
-	_state = GameState.WAITING
+	_state = GameState.WAITING if _state != GameState.LOSE else _state
 
 
 func update_bouncer_status() -> void:
