@@ -31,7 +31,9 @@ enum MoveMode { CONTINUOUS, INTERMITTENT_WAIT, INTERMITTENT_MOVE }
 		mode = new_mode
 var max_speed: float:
 	get:
-		if GameMode.continuous:
+		if get_parent()._state == Game.GameState.LOSE:
+			return GameMode.ball_radius * 10
+		elif GameMode.continuous:
 			return GameMode.difficulty_settings.continuous_speed
 		else:
 			return GameMode.ball_radius * 1.5
