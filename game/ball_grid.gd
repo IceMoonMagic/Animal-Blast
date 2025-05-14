@@ -103,7 +103,7 @@ func _physics_process(delta: float) -> void:
 	if mode == MoveMode.INTERMITTENT_WAIT:
 		return
 	roll_rows(_speed * delta)
-	_speed = min(max_speed, _speed + acceleration)
+	_speed = move_toward(_speed, max_speed, acceleration)
 	if _row_offset >= 0:
 		if mode == MoveMode.CONTINUOUS:
 			push_row()
