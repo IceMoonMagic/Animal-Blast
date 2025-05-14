@@ -6,5 +6,6 @@
 script = ExtResource("1_c6eiy")
 row_size = 7
 palette_size = 4
-continuous_speed = 5.0
+continuous_speed = 10.0
+allowed_strikes = 3
 metadata/_custom_type_script = "uid://qmiuh2gv2cdr"
