@@ -22,3 +22,17 @@ func _on_pause_button_pressed() -> void:
 func _on_pause_menu_resume() -> void:
 	$Panel.hide()
 	get_tree().paused = false
+
+
+func _on_game_warning_triggered() -> void:
+	var container: PanelContainer = $VBoxContainer/PanelContainer
+	container.self_modulate = Color(1.75, 0, 0)
+
+
+func _on_game_warning_cleared() -> void:
+	var container: PanelContainer = $VBoxContainer/PanelContainer
+	container.self_modulate = Color.WHITE
+
+
+func _on_game_game_over() -> void:
+	pass  # Replace with function body.

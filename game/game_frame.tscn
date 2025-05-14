@@ -185,4 +185,7 @@ layout_mode = 1
 
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/PauseButton" to="." method="_on_pause_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/PauseButton2" to="." method="_on_pause_button_pressed"]
+[connection signal="game_over" from="VBoxContainer/PanelContainer/SubViewportContainer/SubViewport/Game" to="." method="_on_game_game_over"]
+[connection signal="warning_cleared" from="VBoxContainer/PanelContainer/SubViewportContainer/SubViewport/Game" to="." method="_on_game_warning_cleared"]
+[connection signal="warning_triggered" from="VBoxContainer/PanelContainer/SubViewportContainer/SubViewport/Game" to="." method="_on_game_warning_triggered"]
 [connection signal="resume" from="Panel/PauseMenu" to="." method="_on_pause_menu_resume"]
