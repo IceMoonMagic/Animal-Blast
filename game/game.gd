@@ -48,6 +48,12 @@ func _physics_process(delta: float) -> void:
 	var remaining_movement: float = _fly_speed * delta
 	while _state == GameState.FLYING:
 		assert(_flying_ball != null)
+		if not get_viewport_rect().has_point(_flying_ball.position):
+			await add_strike()
+			_flying_ball.queue_free()
+			_flying_ball = null
+			_state = GameState.WAITING
+			break
 		var collision: KinematicCollision2D = _flying_ball.move_and_collide(
 			_flying_ball.constant_linear_velocity * remaining_movement
 		)
@@ -74,12 +80,8 @@ func _place_ball(_collision: KinematicCollision2D) -> void:
 	_flying_ball = null
 	var popped: int = maxi(len(balls.pop_queue) - pop_queue_length, 0)
 	game_status.saved += popped
-	if popped == 0 and not GameMode.continuous:
-		game_status.strikes += 1
-		if game_status.strikes >= GameMode.difficulty_settings.allowed_strikes:
-			balls.push_row()
-			await balls.intermittent_move_done
-			game_status.strikes = 0
+	if popped == 0:
+		await add_strike()
 	elif (
 		(balls.balls_remaining <= (GameMode.difficulty_settings.row_size * 1.5))
 		and not _in_warning
@@ -99,6 +101,16 @@ func update_bouncer_status() -> void:
 		game_status.bouncer = 1 - game_status.bouncer
 	if _state == GameState.LOSE:
 		game_status.bouncer = 0.5
+
+
+func add_strike() -> void:
+	if GameMode.continuous:
+		return
+	game_status.strikes += 1
+	if game_status.strikes >= GameMode.difficulty_settings.allowed_strikes:
+		balls.push_row()
+		await balls.intermittent_move_done
+		game_status.strikes = 0
 
 
 func _input(event: InputEvent) -> void:
