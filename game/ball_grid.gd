@@ -34,9 +34,11 @@ var max_speed: float:
 		if get_parent()._state == Game.GameState.LOSE:
 			return GameMode.ball_radius * 10
 		elif GameMode.continuous:
+			if balls_remaining < GameMode.difficulty_settings.row_size * 2.5:
+				return _ball_radius * 1.5
 			return GameMode.difficulty_settings.continuous_speed
 		else:
-			return GameMode.ball_radius * 1.5
+			return _ball_radius * 1.5
 ## Animals allowed to be used
 var pop_queue: Array[Ball] = []
 var balls: Array[Array] = []
