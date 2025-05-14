@@ -39,9 +39,9 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Play"
 
-[node name="OptionsButton" type="Button" parent="VBoxContainer"]
+[node name="PalettesButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-text = "Options"
+text = "Palettes"
 
 [node name="ExitButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
@@ -58,6 +58,6 @@ grow_vertical = 0
 text = "Licenses"
 
 [connection signal="pressed" from="VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/PalettesButton" to="." method="_on_palettes_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="LicensesButton" to="." method="_on_licenses_button_pressed"]

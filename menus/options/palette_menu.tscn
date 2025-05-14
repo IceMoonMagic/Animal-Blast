@@ -1,4 +1,14 @@
-[gd_scene format=3 uid="uid://b1qomkuovquue"]
+[gd_scene load_steps=8 format=3 uid="uid://b1qomkuovquue"]
+
+[ext_resource type="Script" uid="uid://bntpygiluy55j" path="res://menus/options/palette_menu.gd" id="1_3j8ih"]
+[ext_resource type="PackedScene" uid="uid://d1qd8su4n3kh3" path="res://menus/menu_background.tscn" id="1_xly6r"]
+[ext_resource type="Texture2D" uid="uid://ceckmyy2rwl0w" path="res://menus/options/tile_select_grass.tres" id="2_v471c"]
+[ext_resource type="Texture2D" uid="uid://b7f7rn6x0d1t1" path="res://menus/options/tile_select_snow.tres" id="3_3j8ih"]
+[ext_resource type="Texture2D" uid="uid://btdqteq3xp5qg" path="res://menus/options/tile_select_water.tres" id="4_gaxq7"]
+[ext_resource type="Texture2D" uid="uid://cewf6gcwpm7rb" path="res://menus/options/tile_select_lava.tres" id="5_pdxu4"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_pg6bc"]
+viewport_path = NodePath("SubViewport")
 
 [node name="PaletteMenu" type="Control"]
 layout_mode = 3
@@ -7,103 +17,77 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_3j8ih")
+
+[node name="MenuBackground" parent="." instance=ExtResource("1_xly6r")]
+layout_mode = 1
+texture = SubResource("ViewportTexture_pg6bc")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -328.0
+offset_top = -510.0
+offset_right = 328.0
+offset_bottom = 510.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="TilePaletteContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="NormalTileOption" type="OptionButton" parent="VBoxContainer/HBoxContainer"]
+[node name="NormalTileOption" type="OptionButton" parent="VBoxContainer/TilePaletteContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+selected = 0
+item_count = 3
+popup/item_0/icon = ExtResource("2_v471c")
+popup/item_0/id = 0
+popup/item_1/icon = ExtResource("3_3j8ih")
+popup/item_1/id = 1
+popup/item_2/icon = ExtResource("4_gaxq7")
+popup/item_2/id = 2
+
+[node name="LoseTileOption" type="OptionButton" parent="VBoxContainer/TilePaletteContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+selected = 0
+item_count = 2
+popup/item_0/icon = ExtResource("4_gaxq7")
+popup/item_0/id = 0
+popup/item_1/icon = ExtResource("5_pdxu4")
+popup/item_1/id = 1
+
+[node name="DefenseTileOption" type="OptionButton" parent="VBoxContainer/TilePaletteContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+selected = 0
+item_count = 4
+popup/item_0/icon = ExtResource("2_v471c")
+popup/item_0/id = 0
+popup/item_1/icon = ExtResource("3_3j8ih")
+popup/item_1/id = 1
+popup/item_2/icon = ExtResource("4_gaxq7")
+popup/item_2/id = 2
+popup/item_3/icon = ExtResource("5_pdxu4")
+popup/item_3/id = 3
+
+[node name="AnimalPaletteContainer" type="GridContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+columns = 2
+
+[node name="AnimalPaletteOption" type="OptionButton" parent="VBoxContainer/AnimalPaletteContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 
-[node name="LoseTileOption" type="OptionButton" parent="VBoxContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="DefenseTileOption" type="OptionButton" parent="VBoxContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
-layout_mode = 2
-columns = 4
-
-[node name="Panel" type="Panel" parent="VBoxContainer/GridContainer"]
-layout_mode = 2
-
-[node name="TextureButton" type="TextureButton" parent="VBoxContainer/GridContainer/Panel"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Panel2" type="Panel" parent="VBoxContainer/GridContainer"]
-layout_mode = 2
-
-[node name="TextureButton" type="TextureButton" parent="VBoxContainer/GridContainer/Panel2"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Panel3" type="Panel" parent="VBoxContainer/GridContainer"]
-layout_mode = 2
-
-[node name="TextureButton" type="TextureButton" parent="VBoxContainer/GridContainer/Panel3"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Panel4" type="Panel" parent="VBoxContainer/GridContainer"]
-layout_mode = 2
-
-[node name="TextureButton" type="TextureButton" parent="VBoxContainer/GridContainer/Panel4"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Panel5" type="Panel" parent="VBoxContainer/GridContainer"]
-layout_mode = 2
-
-[node name="TextureButton" type="TextureButton" parent="VBoxContainer/GridContainer/Panel5"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Panel6" type="Panel" parent="VBoxContainer/GridContainer"]
-layout_mode = 2
-
-[node name="TextureButton" type="TextureButton" parent="VBoxContainer/GridContainer/Panel6"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Panel7" type="Panel" parent="VBoxContainer/GridContainer"]
-layout_mode = 2
-
-[node name="TextureButton" type="TextureButton" parent="VBoxContainer/GridContainer/Panel7"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Panel8" type="Panel" parent="VBoxContainer/GridContainer"]
-layout_mode = 2
-
-[node name="TextureButton" type="TextureButton" parent="VBoxContainer/GridContainer/Panel8"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
-layout_mode = 2
-
-[node name="GridContainer" type="GridContainer" parent="VBoxContainer/ScrollContainer"]
-layout_mode = 2
-
-[node name="Button" type="Button" parent="."]
+[node name="BackButton" type="Button" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -113,3 +97,8 @@ offset_right = 45.0
 grow_vertical = 0
 size_flags_horizontal = 0
 text = "Back"
+
+[connection signal="item_selected" from="VBoxContainer/TilePaletteContainer/NormalTileOption" to="." method="_on_normal_tile_option_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/TilePaletteContainer/LoseTileOption" to="." method="_on_lose_tile_option_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/TilePaletteContainer/DefenseTileOption" to="." method="_on_defense_tile_option_item_selected"]
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
