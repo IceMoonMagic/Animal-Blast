@@ -64,12 +64,13 @@ func _physics_process(delta: float) -> void:
 				. constant_linear_velocity
 				. bounce(collision.get_normal())
 			)
+			break
 
 
 func _place_ball(_collision: KinematicCollision2D) -> void:
 	_state = GameState.POPPING
 	var pop_queue_length := len(balls.pop_queue)
-	balls.place_ball(_flying_ball, balls.coords_to_index(_flying_ball.position))
+	balls.place_ball_collision(_flying_ball, _collision)
 	_flying_ball = null
 	var popped: int = maxi(len(balls.pop_queue) - pop_queue_length, 0)
 	game_status.saved += popped

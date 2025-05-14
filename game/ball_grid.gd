@@ -295,6 +295,46 @@ func pop_ungrounded(index: Vector2i) -> void:
 		pop_balls(cluster)
 
 
+func place_ball_collision(ball: Ball, collision: KinematicCollision2D) -> void:
+	assert(is_instance_of(collision.get_collider(), Ball))
+	var hit_ball: Ball = collision.get_collider()
+	var hit_index: Vector2i = coords_to_index(hit_ball.position)
+	assert(balls[hit_index.y][hit_index.x] == hit_ball)
+	var raw_collision_angle := fposmod(
+		rad_to_deg(hit_ball.position.angle_to_point(ball.position)), 360
+	)
+	var collision_angle := fposmod(raw_collision_angle + 30, 360)
+	var collision_zone := floori(collision_angle / 60)
+	var place_index: Vector2i
+	match collision_zone:
+		0:
+			place_index = get_right_right(hit_index)
+		1:
+			place_index = get_right_down(hit_index)
+		2:
+			place_index = get_left_down(hit_index)
+		3:
+			place_index = get_left_left(hit_index)
+		4:
+			place_index = get_left_up(hit_index)
+		5:
+			place_index = get_right_up(hit_index)
+		_:
+			push_error(
+				"collision_zone ({}) out of bounds".format([collision_zone])
+			)
+			assert(false)
+			place_index = get_right_right(hit_index)
+
+	assert(
+		(
+			place_index.y >= len(balls)
+			or balls[place_index.y][place_index.x] == null
+		)
+	)
+	place_ball(ball, place_index)
+
+
 func place_ball(ball: Ball, index: Vector2i, cause_pop := true) -> void:
 	if (
 		index.y < 0
