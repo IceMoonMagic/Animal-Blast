@@ -1,0 +1,90 @@
+# https://github.com/abarichello/godot-ci/blob/4.4.1-stable/.github/workflows/godot-ci.yml
+# MIT License
+#
+# Copyright (c) 2018 BARICHELLO
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+name: "godot-ci export"
+on:
+  release:
+    types: [published]
+
+# NOTE: If your `project.godot` is at the repository root, set `PROJECT_PATH` below to ".".
+
+env:
+  GODOT_VERSION: 4.4.1
+  EXPORT_NAME: AnimalBlast
+  PROJECT_PATH: .
+
+jobs:
+  export:
+    runs-on: ubuntu-22.04  # Use 22.04 with godot 4
+    container:
+      image: barichello/godot-ci:4.4.1  # Push to GitHub
+      # Act doesn't bind node like GitHub does, see https://github.com/nektos/act/issues/973
+      # image: godot-ci-node:4.4.1  # Use Locally
+    strategy:
+      # max-parallel: 1
+      matrix:
+        include:
+          - platform: windows
+            preset_name: Windows Desktop
+            output_name: AnimalBlast.exe
+            export_mode: release
+          - platform: linux
+            preset_name: Linux
+            output_name: AnimalBlast.x86_64
+            export_mode: release
+          - platform: mac
+            preset_name: macOS
+            output_name: AnimalBlast.app
+            export_mode: release
+          - platform: web
+            preset_name: Web
+            output_name: index.html
+            export_mode: release
+          - platform: android
+            preset_name: Android
+            output_name: AnimalBlast.apk
+            export_mode: debug
+    name: ${{ matrix.preset_name }}
+    steps:
+      # - name: Act Workaround # https://github.com/nektos/act/issues/973
+      #   if: ${{ env.ACT }}
+      #   run: wget -qO- https://deb.nodesource.com/setup_22.x | bash && apt install -y nodejs
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+      # - name: Setup
+      #   run: |
+      #     mkdir -v -p ~/.local/share/godot/export_templates/
+      #     mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+      - name: Build
+        run: |
+          mkdir -v -p build/${{ matrix.platform }}
+          EXPORT_DIR="$(readlink -f build)"
+          cd $PROJECT_PATH
+          godot --headless --export-${{ matrix.export_mode }} "${{ matrix.preset_name }}" "$EXPORT_DIR/${{ matrix.platform }}/${{ matrix.output_name }}"
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.platform }}
+          path: build/${{ matrix.platform }}
