@@ -18,11 +18,12 @@ each changing the number of columns and variety of animals.
 ### Score
 
 The game displays three stats:
-	1. The number of animals saved.
-	2. A score
-		- For every shot, increases by `(n * (n + 1)) / 2`,
-		where n is the number of animals saved in that shot.
-	3. The number of rows that have advanced from the top of the screen.
+
+1. The number of animals saved.
+2. A score
+	- For every shot, increases by `(n * (n + 1)) / 2`,
+	where n is the number of animals saved in that shot.
+3. The number of rows that have advanced from the top of the screen.
 
 ### Non-Continuous Mode
 
@@ -50,9 +51,10 @@ In the palette menu, accessed from the main screen,
 you can change the tiles and animals used.
 
 In order from left to right, the tiles represent:
-	- The "normal" tiles. These are where the animals are.
-	- The "lose" tiles. These are where the animals fall into on game over.
-	- The "defense" tiles. These are the bottom row, under the launcher.
+
+- The "normal" tiles. These are where the animals are.
+- The "lose" tiles. These are where the animals fall into on game over.
+- The "defense" tiles. These are the bottom row, under the launcher.
 
 There are eight animal options.
 
@@ -63,20 +65,21 @@ with the last two added in Hard.
 ### Game Difficulty
 
 The custom difficulty grants access to the following properties:
-	- Balls per Row
-		- Min 5, Max 15
-		- The number of animals that make up a row, aka number of columns.
-		- The size of the animals scales based on this.
-	- Number of Ball Types
-		- Min 4, Max 8
-		- The number of different animals from the palette to use.
-	- Continuous Roll Speed
-		- Min 5
-		- How fast (in pixels per second) to roll balls in continuous mode.
-	- Strikes until Next Roll
-		- Min 1
-		- The number of stikes needed to trigger a new row
-		- At 1, rolls on every strike
+
+- Balls per Row
+	- Min 5, Max 15
+	- The number of animals that make up a row, aka number of columns.
+	- The size of the animals scales based on this.
+- Number of Ball Types
+	- Min 4, Max 8
+	- The number of different animals from the palette to use.
+- Continuous Roll Speed
+	- Min 5
+	- How fast (in pixels per second) to roll balls in continuous mode.
+- Strikes until Next Roll
+	- Min 1
+	- The number of stikes needed to trigger a new row
+	- At 1, rolls on every strike
 
 ## Licenses
 
