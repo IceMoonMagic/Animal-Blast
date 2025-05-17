@@ -39,7 +39,7 @@ default_color = Color(1, 0, 0, 1)
 script = ExtResource("3_h7iqs")
 
 [node name="BallLauncher" parent="." instance=ExtResource("4_4fuuu")]
-z_index = 1
+z_index = 3
 position = Vector2(320, 1056)
 
 [connection signal="body_entered" from="Environment/WarningLine" to="." method="_on_warning_line_body_interacted"]
