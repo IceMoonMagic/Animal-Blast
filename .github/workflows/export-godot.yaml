@@ -80,9 +80,10 @@ jobs:
       - name: Build
         run: |
           mkdir -v -p build/${{ matrix.platform }}
-          EXPORT_DIR="$(readlink -f build)"
+          EXPORT_DIR="$(readlink -f build)/${{ matrix.platform }}"
           cd $PROJECT_PATH
-          godot --headless --export-${{ matrix.export_mode }} "${{ matrix.preset_name }}" "$EXPORT_DIR/${{ matrix.platform }}/${{ matrix.output_name }}"
+          godot --headless --export-${{ matrix.export_mode }} "${{ matrix.preset_name }}" "$EXPORT_DIR/${{ matrix.output_name }}"
+          cp -aL "build/all/." "$EXPORT_DIR"
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
