@@ -145,6 +145,19 @@ func push_row() -> void:
 			_ball_radius * (x + 1),
 			_row_offset - _ball_radius,
 		)
+
+		var balls_down := [
+			get_left_down(Vector2i(x, -1)), get_right_down(Vector2i(x, -1))
+		]
+		balls_down.shuffle()
+		for adjacent: Vector2i in balls_down:
+			var num_same_animal := len(
+				find_adjacent_cells_same_animal(adjacent)
+			)
+			if 0 < num_same_animal and num_same_animal < 2:
+				ball.animal = balls[adjacent.y][adjacent.x].animal
+				break
+
 		add_child(ball)
 		result[x] = ball
 
