@@ -41,7 +41,7 @@ func _ready() -> void:
 		GameMode.animal_palette.get_limited(
 			GameMode.difficulty_settings.palette_size
 		),
-		3
+		GameMode.difficulty_settings.palette_size * 2 - 2
 	)
 	for animal: Ball.Animal in _ball_random_pool.items.duplicate():
 		_ball_random_pool.items.append(animal)
