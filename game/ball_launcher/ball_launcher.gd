@@ -18,6 +18,7 @@ var current_angle: float = 0:
 var ball_current: Ball
 var ball_on_deck: Ball
 var can_fire := true
+
 var _current_angle_rad: float:
 	get:
 		return deg_to_rad(current_angle)
@@ -66,7 +67,7 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	const LINE_LENGTH := 2000
 	line2d.visible = can_fire
-	_current_angle_rad = (get_global_mouse_position() - position).angle()
+	#_current_angle_rad = (get_global_mouse_position() - position).angle()
 
 	pivot.rotation = _current_angle_rad
 

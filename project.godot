@@ -55,6 +55,11 @@ ui/inspector/tree_sort_mode=1
 
 theme/custom="uid://bk5b7asbux04a"
 
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+pointing/emulate_mouse_from_touch=false
+
 [physics]
 
 2d/default_linear_damp=0.0
