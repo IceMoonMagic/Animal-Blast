@@ -5,8 +5,12 @@ extends Area2D
 ## Texture2D object to draw
 @export var texture: Texture2D:
 	get:
+		if not is_node_ready():
+			await ready
 		return sprite.texture
 	set(val):
+		if not is_instance_valid(val):
+			return
 		if not is_node_ready():
 			await ready
 		sprite.texture = val
