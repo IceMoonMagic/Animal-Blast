@@ -124,7 +124,11 @@ func _input(event: InputEvent) -> void:
 			event is InputEventScreenTouch
 			or event.button_index == MOUSE_BUTTON_LEFT
 		):
-			launcher.fire()
+			if event.position.y >= 968:
+				launcher.skip_ball()
+				add_strike()
+			else:
+				launcher.fire()
 		elif event.button_index == MOUSE_BUTTON_RIGHT:
 			launcher.skip_ball()
 			add_strike()
