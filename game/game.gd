@@ -119,6 +119,7 @@ func _input(event: InputEvent) -> void:
 			launcher._current_angle_rad = launcher.position.angle_to_point(
 				event.position
 			)
+			launcher.is_aiming = true
 		elif (
 			event is InputEventScreenTouch
 			or event.button_index == MOUSE_BUTTON_LEFT
@@ -131,6 +132,7 @@ func _input(event: InputEvent) -> void:
 		launcher._current_angle_rad = launcher.position.angle_to_point(
 			event.position
 		)
+		launcher.is_aiming = true
 
 
 func _on_ball_launcher_ball_fired(ball: Ball) -> void:

@@ -17,7 +17,19 @@ var current_angle: float = 0:
 		current_angle = fposmod(clamped_angle + wrap_at, 360)
 var ball_current: Ball
 var ball_on_deck: Ball
-var can_fire := true
+var can_fire := true:
+	set(val):
+		can_fire = val
+		is_aiming = can_fire and is_aiming
+		if ball_current != null:
+			if can_fire:
+				ball_current.position = Vector2i.ZERO  # Position of marker_2d
+			else:
+				ball_current.global_position = self.global_position
+var is_aiming := false:
+	set(val):
+		is_aiming = can_fire and val
+		line2d.visible = is_aiming
 
 var _current_angle_rad: float:
 	get:
@@ -63,11 +75,11 @@ func _ready() -> void:
 	if ball_current == null:
 		cycle_balls()
 
+	current_angle = rotation_degrees
+
 
 func _physics_process(_delta: float) -> void:
 	const LINE_LENGTH := 2000
-	line2d.visible = can_fire
-	#_current_angle_rad = (get_global_mouse_position() - position).angle()
 
 	pivot.rotation = _current_angle_rad
 
@@ -130,10 +142,10 @@ func fire(force := false) -> void:
 	if not can_fire and not force:
 		return
 
-	can_fire = false
-	ball_current.constant_linear_velocity = _fire_normal * LAUNCH_SPEED
-	ball_fired.emit(ball_current)
+	var firing := ball_current
 	cycle_balls()
+	firing.constant_linear_velocity = _fire_normal * LAUNCH_SPEED
+	ball_fired.emit(firing)
 
 
 func skip_ball() -> void:
