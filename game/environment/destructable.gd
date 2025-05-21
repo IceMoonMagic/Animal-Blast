@@ -3,7 +3,8 @@
 extends Area2D
 
 ## Texture2D object to draw
-@export var texture: Texture2D:
+@export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_EDITOR)
+var texture: Texture2D:
 	get:
 		if not is_node_ready():
 			await ready
