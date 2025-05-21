@@ -114,16 +114,13 @@ func add_strike() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventScreenTouch or event is InputEventMouseButton:
+	if event is InputEventMouseButton:
 		if event.pressed:
 			launcher._current_angle_rad = launcher.position.angle_to_point(
 				event.position
 			)
 			launcher.is_aiming = true
-		elif (
-			event is InputEventScreenTouch
-			or event.button_index == MOUSE_BUTTON_LEFT
-		):
+		elif event.button_index == MOUSE_BUTTON_LEFT:
 			if event.position.y >= 968:
 				launcher.skip_ball()
 				add_strike()
@@ -132,7 +129,7 @@ func _input(event: InputEvent) -> void:
 		elif event.button_index == MOUSE_BUTTON_RIGHT:
 			launcher.skip_ball()
 			add_strike()
-	elif event is InputEventScreenDrag or event is InputEventMouseMotion:
+	elif event is InputEventMouseMotion:
 		launcher._current_angle_rad = launcher.position.angle_to_point(
 			event.position
 		)
