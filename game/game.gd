@@ -25,15 +25,15 @@ var _flying_ball: Ball
 func _ready() -> void:
 	const TILE_SIZE := 88
 	const FENCE_COMPENSATION := 30
-	var radius_compisation := minf(balls._ball_radius, 44)
+	var radius_compensation := minf(balls._ball_radius, 44)
 	$Environment/WarningLine/CollisionShape2D.shape.distance = -(
-		TILE_SIZE * 8 + radius_compisation
+		TILE_SIZE * 8 + radius_compensation
 	)
 	$Environment/LoseLine/CollisionShape2D.shape.distance = -(
-		TILE_SIZE * 9 + FENCE_COMPENSATION + radius_compisation
+		TILE_SIZE * 9 + FENCE_COMPENSATION + radius_compensation
 	)
 	$Environment/LoseLine/Line2D.position = Vector2(
-		0, TILE_SIZE * 9 + FENCE_COMPENSATION + radius_compisation
+		0, TILE_SIZE * 9 + FENCE_COMPENSATION + radius_compensation
 	)
 	if not GameMode.continuous:
 		_state = GameState.POPPING
