@@ -92,7 +92,7 @@ func load_config_file() -> Error:
 
 func save_config_file() -> Error:
 	var config_file := ConfigFile.new()
-	config_file.set_value("GameMode", "animal_palette", animal_palette.animals)
+	config_file.set_value("GameMode", "animals", animal_palette.animals)
 	config_file.set_value(
 		"GameMode",
 		"tiles",

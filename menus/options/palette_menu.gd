@@ -10,6 +10,7 @@ extends Control
 
 
 func _ready() -> void:
+	GameMode.load_config_file()
 	normal_tile_option.selected = GameMode.environment_palette.normal_tiles
 	lose_tile_option.selected = GameMode.environment_palette.lose_tiles - 2
 	defense_tile_option.selected = GameMode.environment_palette.defense_tiles
@@ -65,4 +66,5 @@ func _on_animal_palette_option_item_elected(
 
 
 func _on_back_button_pressed() -> void:
+	GameMode.save_config_file()
 	get_tree().change_scene_to_file("res://menus/title_screen.tscn")
