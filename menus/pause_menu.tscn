@@ -43,7 +43,7 @@ text = "Restart"
 
 [node name="ToTitleButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-text = "Return to Title"
+text = "Return to Menu"
 
 [connection signal="pressed" from="VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
