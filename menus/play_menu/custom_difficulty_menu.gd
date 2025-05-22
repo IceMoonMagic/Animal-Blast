@@ -16,6 +16,16 @@ func _ready() -> void:
 	$VBoxContainer/GridContainer/StrikesSpinBox.value = (
 		GameMode.custom_difficulty.allowed_strikes
 	)
+	(
+		$VBoxContainer/GridContainer/ConstinousSpeedSpinBox
+		. get_line_edit()
+		. set_virtual_keyboard_type(3)
+	)
+	(
+		$VBoxContainer/GridContainer/StrikesSpinBox
+		. get_line_edit()
+		. set_virtual_keyboard_type(3)
+	)
 
 
 func _on_balls_per_row_slider_value_changed(value: float) -> void:

@@ -30,6 +30,7 @@ window/size/viewport_height=1280
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 window/handheld/orientation=1
+mouse_cursor/emulate_mouse_from_touch=true
 
 [editor_plugins]
 
@@ -54,6 +55,7 @@ ui/inspector/tree_sort_mode=1
 
 [gui]
 
+theme/default_theme_scale=2.0
 theme/custom="uid://bk5b7asbux04a"
 
 [physics]

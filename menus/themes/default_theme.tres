@@ -88,7 +88,9 @@ region = Rect2(1120, 944, 32, 128)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_q3xwb"]
 texture = SubResource("AtlasTexture_mw7wy")
+texture_margin_left = 8.0
 texture_margin_top = 12.0
+texture_margin_right = 8.0
 texture_margin_bottom = 12.0
 expand_margin_top = 12.0
 expand_margin_bottom = 12.0
@@ -106,13 +108,11 @@ atlas = ExtResource("1_ln7ww")
 region = Rect2(1152, 176, 32, 128)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mw7wy"]
-content_margin_left = 8.0
-content_margin_top = 12.0
-content_margin_right = 8.0
-content_margin_bottom = 12.0
 texture = SubResource("AtlasTexture_f311a")
-texture_margin_top = 8.0
-texture_margin_bottom = 8.0
+texture_margin_left = 16.0
+texture_margin_top = 12.0
+texture_margin_right = 16.0
+texture_margin_bottom = 12.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1733i"]
 atlas = ExtResource("1_ln7ww")
