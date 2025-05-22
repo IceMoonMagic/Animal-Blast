@@ -114,26 +114,32 @@ func add_strike() -> void:
 
 
 func _input(event: InputEvent) -> void:
+	if (
+		"position" in event
+		and not get_viewport_rect().has_point(event.position)
+	):
+		return
+	const SKIP_LINE_Y := 88 * 11
 	if event is InputEventMouseButton:
 		if event.pressed:
 			launcher._current_angle_rad = launcher.position.angle_to_point(
 				event.position
 			)
-			launcher.is_aiming = true
+			launcher.is_aiming = event.position.y < SKIP_LINE_Y
 		elif event.button_index == MOUSE_BUTTON_LEFT:
-			if event.position.y >= 968:
-				launcher.skip_ball()
-				add_strike()
+			if event.position.y >= SKIP_LINE_Y:
+				if launcher.skip_ball(true):
+					add_strike()
 			else:
 				launcher.fire()
 		elif event.button_index == MOUSE_BUTTON_RIGHT:
-			launcher.skip_ball()
-			add_strike()
+			if launcher.skip_ball(false):
+				add_strike()
 	elif event is InputEventMouseMotion:
 		launcher._current_angle_rad = launcher.position.angle_to_point(
 			event.position
 		)
-		launcher.is_aiming = true
+		launcher.is_aiming = event.position.y < SKIP_LINE_Y
 
 
 func _on_ball_launcher_ball_fired(ball: Ball) -> void:

@@ -148,7 +148,13 @@ func fire(force := false) -> void:
 	ball_fired.emit(firing)
 
 
-func skip_ball() -> void:
+func skip_ball(reset_angle := true) -> bool:
+	if not can_fire:
+		return false
+
 	if ball_current != null:
 		ball_current.queue_free()
 	cycle_balls()
+	if reset_angle:
+		current_angle = rotation_degrees
+	return true
